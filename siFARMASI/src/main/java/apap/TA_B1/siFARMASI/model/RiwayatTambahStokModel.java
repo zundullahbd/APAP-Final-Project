@@ -10,16 +10,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "resep")
+@Table(name = "RiwayatTambahStok")
 @Entity
-public class ResepModel {
+public class RiwayatTambahStokModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,9 +29,8 @@ public class ResepModel {
     private ObatAlkesModel id_obat;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "nomor", nullable = false)
-    private String nomor;
+    @Column(name = "id_mitra", nullable = false)
+    private Integer id_mitra;
 
     @NotNull
     @Column(name = "jumlah_obat", nullable = false)
