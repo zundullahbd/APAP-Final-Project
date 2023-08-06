@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <nav
-    class="fixed flex w-full items-center justify-between py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5"
+    class="fixed flex w-full items-center justify-between py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5 h-16"
     aria-label="Global"
     th:fragment="nav(activeTab)"
   >
@@ -12,7 +12,7 @@
         <p class="font-bold text-sky-600 text-xl">siFARMASI</p>
       </a>
     </div>
-    <div class="flex p-1 rounded-xl bg-gray-900/5">
+    <div class="flex p-1 rounded-xl bg-gray-900/5" th:if="${#authentication}">
       <a
         href="#"
         th:classappend="${activeTab == 'feature1' ? 'text-white bg-sky-400' : ''}"
@@ -36,11 +36,6 @@
         th:classappend="${activeTab == 'feature4' ? 'text-white bg-sky-400' : ''}"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
         >Feature 4</a
-      >
-    </div>
-    <div class="flex justify-end">
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-        >Log in <span aria-hidden="true">&rarr;</span></a
       >
     </div>
   </nav>
