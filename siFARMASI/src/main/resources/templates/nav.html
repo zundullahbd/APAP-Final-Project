@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <nav
-    class="fixed flex w-full items-center justify-between p-6 px-20"
+    class="fixed flex w-full items-center justify-between py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5"
     aria-label="Global"
-    th:fragment="nav"
+    th:fragment="nav(activeTab)"
   >
     <div class="flex">
-      <a href="/" class="-m-1.5 p-1.5">
-        <span class="sr-only">Your Company</span>
+      <a href="/" class="-m-1.5 p-1.5 flex flex-row items-center space-x-3">
+        <span class="sr-only">siFARMASI</span>
         <img class="h-8 w-auto" src="/images/favicon.svg" alt="" />
+        <p class="font-bold text-sky-600 text-xl">siFARMASI</p>
       </a>
     </div>
-    <div class="flex">
+    <div class="flex p-1 rounded-xl bg-gray-900/5">
       <a
         href="#"
-        class="px-6 py-3 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
+        th:classappend="${activeTab == 'feature1' ? 'text-white bg-sky-400' : ''}"
+        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
         >Feature 1</a
       >
       <a
         href="#"
-        class="px-6 py-3 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
+        th:classappend="${activeTab == 'feature2' ? 'text-white bg-sky-400' : ''}"
+        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
         >Feature 2</a
       >
       <a
         href="#"
-        class="px-6 py-3 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
+        th:classappend="${activeTab == 'feature3' ? 'text-white bg-sky-400' : ''}"
+        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
         >Feature 3</a
       >
       <a
         href="#"
-        class="px-6 py-3 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
+        th:classappend="${activeTab == 'feature4' ? 'text-white bg-sky-400' : ''}"
+        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
         >Feature 4</a
       >
     </div>
     <div class="flex justify-end">
       <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-        >Log in
-        <span aria-hidden="true"
-          >&rarr;</span
-        ></a
+        >Log in <span aria-hidden="true">&rarr;</span></a
       >
     </div>
   </nav>
