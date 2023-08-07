@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head.html :: head" th:with="title='siFARMASI'"> </head>
+<body>
+<div class="bg-white">
+    <header
+            class="absolute inset-x-0 top-0 z-50"
+            th:insert="nav.html :: nav('/')"
+    ></header>
+    <section
+            class="p-20 pr-0 space-x-20 justify-center"
+    >
+        <div>
+            <h1 class="text-6xl font-bold text-gray-900">
+                Input Resep
+            </h1>
+        </div>
+
+        <div
+                class="flex items-center justify-center p-6"
+        >
+            <form th:action="@{/resep/input-resep}" th:object="${resep}" method="POST"
+                    class="p-12 grow max-w-lg border border-gray-500/20 rounded-lg bg-white shadow-xl"
+            >
+                <div class="mb-6">
+                    <label
+
+                            class="block mb-2 text-sm font-medium text-gray-900"
+                    >Nama Obat / Alkes</label
+                    >
+                    <select
+                            class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                            th:field="*{id_obat}"
+                    >
+                            <option value="" disabled selected>Pilih Obat / Alat Kesehatan</option>
+                            <option th:each="obatalkes : ${listObatAlkes}" th:value="${obatalkes.id}" th:text="${obatalkes.nama}"></option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label
+                            for="Jumlah Stok"
+                            class="form-control block mb-2 text-sm font-medium text-gray-900"
+                    >Jumlah Stok</label
+                    >
+                    <input
+                            th:field="*{jumlah_obat}"
+                            type="number"
+                            id="Jumlah Stok"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                            placeholder="Masukkan jumlah stok (1,2,3...)"
+                            required
+                    />
+                </div>
+                <div class="flex justify-end">
+                    <a
+                            th:href="@{/}"
+                            class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                        Kembali
+                    </a>
+                    <button
+                            type="submit"
+                            class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                            style="margin-left: 2%"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</body>
+</html>
