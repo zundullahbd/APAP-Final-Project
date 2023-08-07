@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,11 +35,6 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @NotNull
-    @Size(max = 50)
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -51,4 +47,9 @@ public class UserModel implements Serializable {
     @Column(name = "created_at_timestamp", nullable = false)
     private Instant created_at_timestamp;
 
+    @OneToMany(mappedBy = "id_user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<ResepModel> listResep;
+
+    @OneToMany(mappedBy = "id_user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<RiwayatTambahStokModel> listRiwayat;
 }

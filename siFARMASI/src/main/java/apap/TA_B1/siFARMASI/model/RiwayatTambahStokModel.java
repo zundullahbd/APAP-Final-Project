@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,9 +17,9 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "resep")
+@Table(name = "RiwayatTambahStok")
 @Entity
-public class ResepModel implements Serializable {
+public class RiwayatTambahStokModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,9 +30,8 @@ public class ResepModel implements Serializable {
     private ObatAlkesModel id_obat;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "nomor", nullable = false)
-    private String nomor;
+    @Column(name = "id_mitra", nullable = false)
+    private Integer id_mitra;
 
     @NotNull
     @Column(name = "jumlah_obat", nullable = false)
