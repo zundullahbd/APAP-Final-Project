@@ -8,23 +8,31 @@
         th:insert="nav.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
       ></header>
       <section
-        class="p-20 pr-0 flex place-items-center space-x-20 justify-between"
+        class="p-20 pr-0 flex items-start space-x-20 justify-between"
+        th:unless="${#authentication}"
       >
-        <div class="space-y-5">
+        <div class="z-10 space-y-5 my-20">
           <p
-            class="px-4 py-1.5 font-semibold text-sm text-sky-600 bg-sky-100 rounded-full border border-sky-200 w-fit"
+            class="px-4 py-1.5 font-semibold text-sm text-sky-600 bg-sky-100/70 rounded-full border border-sky-200 w-fit"
           >
             Kelompok B1
           </p>
           <h1 class="text-6xl font-bold text-gray-900">
             Welcome to siFARMASI!
           </h1>
+          <script
+            type="module"
+            src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"
+          ></script>
+          <spline-viewer
+            url="https://prod.spline.design/fJ2ptJKzT-sDkpfO/scene.splinecode"
+          ></spline-viewer>
         </div>
         <div
           class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
         >
           <form
-            class="p-12 grow max-w-lg border border-gray-500/20 rounded-lg bg-white shadow-xl"
+            class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-lg bg-white shadow-xl"
           >
             <h2 class="font-semibold text-3xl text-gray-900 mb-10">Sign in</h2>
             <div class="mb-6">
@@ -120,7 +128,9 @@
             </button>
           </form>
         </div>
-        <div class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8">
+        <div
+          class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
+        >
           <div
             class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true"
