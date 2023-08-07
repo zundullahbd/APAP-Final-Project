@@ -32,7 +32,7 @@ public class MitraModel implements Serializable {
 
     @NotNull
     @Size(max = 100)
-    @Column(name = "role", nullable = false)
+    @Column(name = "alamat", nullable = false)
     private String alamat;
 
     @NotNull
