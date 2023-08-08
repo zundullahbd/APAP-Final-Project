@@ -13,11 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/obat-alkes")
@@ -32,6 +35,39 @@ public class ObatAlkesController {
     private UserService userService;
     @Autowired
     private RiwayatTambahStokDb riwayatTambahStokDb;
+
+    @GetMapping("/daftar-obat-alkes")
+    public String viewAllObatAlkes(Model model){
+        List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
+        model.addAttribute("listObatAlkes", listObatAlkes);
+        return "obatalkes/list-obatalkes";
+    }
+
+    @GetMapping("/detail-obat-alkes/{id}")
+    public String detailObatAlkes(@PathVariable Long id,Model model){
+        ObatAlkesModel obatAlkes = obatAlkesService.getObatAlkesById(id);
+        if (obatAlkes == null){
+            model.addAttribute("id", id);
+            return "obatalkes/obatalkes-not-found";
+        }else{
+            model.addAttribute("obatAlkes", obatAlkes);
+            return "obatalkes/detail-obatalkes";
+        }
+    }
+
+    @PostMapping("/hapus")
+    private String hapusTiket(
+        final HttpServletRequest rowId,
+        Model model
+    ){
+        int obatAlkesIdRow = Integer.valueOf(rowId.getParameter("deleteObatAlkes"));
+        ObatAlkesModel obatAlkes = obatAlkesService.getListObatAlkes().get(obatAlkesIdRow);
+        model.addAttribute("namaObatAlkes", obatAlkes.getNama());
+        obatAlkesService.deleteObatAlkes(obatAlkes);
+        return "obatalkes/delete-obatalkes";
+
+    }
+
 
     @GetMapping("/input-obat-alkes")
     public String addObatAlkesFormPage (Model model) {

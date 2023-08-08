@@ -8,4 +8,6 @@ public interface ObatAlkesService {
     List<ObatAlkesModel> getListObatAlkes();
     void reduceStock(ObatAlkesModel obatAlkes, Integer jumlah);
     void increaseStock(ObatAlkesModel obatAlkes, Integer jumlah);
+    ObatAlkesModel getObatAlkesById(Long id);
+    void deleteObatAlkes(ObatAlkesModel obatAlkes);
 }

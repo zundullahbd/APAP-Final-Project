@@ -28,4 +28,14 @@ public class ObatAlkesServiceImpl implements ObatAlkesService {
         obatAlkes.setStok(obatAlkes.getStok() + jumlah);
         obatAlkesDb.save(obatAlkes);
     }
+
+    @Override
+    public ObatAlkesModel getObatAlkesById(Long id){
+        return obatAlkesDb.getObatAlkesById(id);
+    }
+
+    public void deleteObatAlkes(ObatAlkesModel obatAlkes){
+        obatAlkesDb.delete(obatAlkes);
+    }
+
 }
