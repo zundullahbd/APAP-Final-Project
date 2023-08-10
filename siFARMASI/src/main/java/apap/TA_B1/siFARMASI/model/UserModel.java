@@ -48,8 +48,8 @@ public class UserModel implements Serializable {
     private Instant created_at_timestamp;
 
     @OneToMany(mappedBy = "id_user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<ResepModel> listResep;
+    private List<ResepModel> listResep;
 
     @OneToMany(mappedBy = "id_user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<RiwayatTambahStokModel> listRiwayat;
+    private List<RiwayatTambahStokModel> listRiwayat;
 }

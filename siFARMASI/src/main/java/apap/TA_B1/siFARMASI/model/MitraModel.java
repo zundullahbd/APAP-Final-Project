@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -25,30 +25,31 @@ public class MitraModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(max = 50)
+    @NotBlank
     @Column(name = "nama", nullable = false)
     private String nama;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "role", nullable = false)
+    @NotBlank
+    @Column(name = "alamat", nullable = false)
     private String alamat;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "email", nullable = false)
+    @NotBlank
+    @Column(name = "jenis", nullable = false)
     private String jenis;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "username", nullable = false)
+    @NotBlank
+    @Column(name = "kontak", nullable = false)
     private String kontak;
 
-    @Column(name = "tanggal_kerjasama", nullable = true)
-    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm")
-    private LocalDateTime tanggal_kerjasama;
+    @Column(name = "tanggalKerjasama")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate tanggalKerjasama;
 
-    @OneToMany(mappedBy = "id_mitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<ObatAlkesModel> listObatAlkes;
+    @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<ObatAlkesModel> obatAlkesList;
+
+    @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<RiwayatTambahStokModel> riwayatTambahStokList;
 }

@@ -27,9 +27,9 @@ public class ObatAlkesModel implements Serializable {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_mitra", referencedColumnName = "id")
+    @JoinColumn(name = "idMitra", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private ObatAlkesModel id_mitra;
+    private MitraModel idMitra;
 
     @NotNull
     @Size(max = 50)
@@ -38,31 +38,31 @@ public class ObatAlkesModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "kategori_obat", nullable = false)
-    private String kategori_obat;
+    @Column(name = "kategoriObat", nullable = false)
+    private String kategoriObat;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "jenis_sediaan", nullable = false)
-    private String jenis_sediaan;
+    @Column(name = "jenisSediaan", nullable = false)
+    private String jenisSediaan;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "kemasan_simpan", nullable = false)
-    private String kemasan_simpan;
+    @Column(name = "kemasanSimpan", nullable = false)
+    private String kemasanSimpan;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "kemasan_beli", nullable = false)
-    private String kemasan_beli;
+    @Column(name = "kemasanBeli", nullable = false)
+    private String kemasanBeli;
 
     @NotNull
-    @Column(name = "harga_beli", nullable = false)
-    private Integer harga_beli;
+    @Column(name = "hargaBeli", nullable = false)
+    private Integer hargaBeli;
 
     @NotNull
-    @Column(name = "harga_jual", nullable = false)
-    private Integer harga_jual;
+    @Column(name = "hargaJual", nullable = false)
+    private Integer hargaJual;
 
     @NotNull
     @Column(name = "stok", nullable = false)
@@ -79,12 +79,12 @@ public class ObatAlkesModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "path_file", nullable = false)
-    private String path_file;
+    @Column(name = "pathFile", nullable = false)
+    private String pathFile;
 
     @OneToMany(mappedBy = "id_obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<RiwayatTambahStokModel> listRiwayat;
+    private List<RiwayatTambahStokModel> listRiwayat;
 
     @OneToMany(mappedBy = "id_obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<ResepModel> listResep;
+    private List<ResepModel> listResep;
 }

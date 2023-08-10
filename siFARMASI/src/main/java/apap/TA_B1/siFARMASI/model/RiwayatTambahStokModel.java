@@ -30,8 +30,8 @@ public class RiwayatTambahStokModel implements Serializable {
     private ObatAlkesModel id_obat;
 
     @NotNull
-    @Column(name = "id_mitra", nullable = false)
-    private Integer id_mitra;
+    @Column(name = "idMitra", nullable = false)
+    private Integer idMitra;
 
     @NotNull
     @Column(name = "jumlah_obat", nullable = false)
