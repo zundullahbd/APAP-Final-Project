@@ -15,5 +15,30 @@ public class MitraServiceImpl implements MitraService {
     MitraDb mitraDb;
 
     @Override
-    public List<MitraModel> getListMitra() { return mitraDb.findAll(); }
+    public List<MitraModel> getListMitra() {
+        return mitraDb.findAll();
+    }
+
+    @Override
+    public MitraModel getMitraById(Integer id) {
+        return mitraDb.findById(id).orElse(null);
+    }
+
+    @Override
+    public MitraModel addMitra(MitraModel mitra) {
+        return mitraDb.save(mitra);
+    }
+
+    @Override
+    public MitraModel updateMitra(MitraModel mitra) {
+        return mitraDb.save(mitra);
+    }
+
+    @Override
+    public void deleteMitra(Integer id) {
+        MitraModel mitra = mitraDb.findById(id).orElse(null);
+        if (mitra != null) {
+            mitraDb.delete(mitra);
+        }
+    }
 }

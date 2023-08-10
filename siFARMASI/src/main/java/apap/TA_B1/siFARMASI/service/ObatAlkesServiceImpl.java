@@ -15,7 +15,32 @@ public class ObatAlkesServiceImpl implements ObatAlkesService {
     ObatAlkesDb obatAlkesDb;
 
     @Override
-    public List<ObatAlkesModel> getListObatAlkes() { return obatAlkesDb.findAll(); }
+    public List<ObatAlkesModel> getListObatAlkes() {
+        return obatAlkesDb.findAll();
+    }
+
+    @Override
+    public ObatAlkesModel getObatAlkesById(Integer id) {
+        return obatAlkesDb.findById(id).orElse(null);
+    }
+
+    @Override
+    public ObatAlkesModel addObatAlkes(ObatAlkesModel obatAlkes) {
+        return obatAlkesDb.save(obatAlkes);
+    }
+
+    @Override
+    public ObatAlkesModel updateObatAlkes(ObatAlkesModel obatAlkes) {
+        return obatAlkesDb.save(obatAlkes);
+    }
+
+    @Override
+    public void deleteObatAlkes(Integer id) {
+        ObatAlkesModel obatAlkes = obatAlkesDb.findById(id).orElse(null);
+        if (obatAlkes != null) {
+            obatAlkesDb.delete(obatAlkes);
+        }
+    }
 
     @Override
     public void reduceStock(ObatAlkesModel obatAlkes, Integer jumlah) {
