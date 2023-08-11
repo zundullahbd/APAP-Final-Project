@@ -1,6 +1,5 @@
 package apap.TA_B1.siFARMASI.service;
 
-import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.UserModel;
 import apap.TA_B1.siFARMASI.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +27,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserModel> getListUser() {
         return userDb.findAll();
+    }
+
+    @Override
+    public List<UserModel> getListAdmin() {
+        return userDb.findAllByRole("admin");
+    }
+
+    @Override
+    public List<UserModel> getListDokter() {
+        return userDb.findAllByRole("dokter");
+    }
+
+    @Override
+    public List<UserModel> getListApoteker() {
+        return userDb.findAllByRole("apoteker");
+    }
+
+    @Override
+    public List<UserModel> getListManager() {
+        return userDb.findAllByRole("manager");
     }
 
     @Override

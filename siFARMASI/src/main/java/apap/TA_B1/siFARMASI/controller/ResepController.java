@@ -7,6 +7,8 @@ import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.ResepService;
 import apap.TA_B1.siFARMASI.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/resep")
 public class ResepController {
+    private final Logger logger = LoggerFactory.getLogger(ObatAlkesController.class);
+
     @Autowired
     private ResepService resepService;
 
@@ -34,6 +38,7 @@ public class ResepController {
 
     @GetMapping("/input-resep")
     public String addResepFormPage (Model model) {
+        logger.info("Handle resep add form page");
         ResepModel resep = new ResepModel();
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
 
@@ -44,6 +49,7 @@ public class ResepController {
 
     @PostMapping("/input-resep")
     public String addResepSubmitPage (@ModelAttribute ResepModel resep, Model model) {
+        logger.info("Handle resep add submit page");
         obatAlkesService.reduceStock(resep.getId_obat(), resep.getJumlah_obat());
 //        resep.setId_user(userService.getUserById(1));
         resep.setNomor("R-01");

@@ -88,7 +88,9 @@
             >
               Submit
             </button>
+            <p class="text-center text-red-500" th:if="${error != ''}" th:text="${error}"></p>
           </form>
+
         </div>
         <a href="/user" class="fixed bottom-8 right-8">
           <button

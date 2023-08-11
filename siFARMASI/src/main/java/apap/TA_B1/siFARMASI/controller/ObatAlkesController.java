@@ -8,6 +8,8 @@ import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/obat-alkes")
 public class ObatAlkesController {
+    private final Logger logger = LoggerFactory.getLogger(ObatAlkesController.class);
     @Autowired
     private ObatAlkesService obatAlkesService;
 
@@ -35,6 +38,7 @@ public class ObatAlkesController {
 
     @GetMapping("/input-obat-alkes")
     public String addObatAlkesFormPage (Model model) {
+        logger.info("Handle obat alkes add form request");
         RiwayatTambahStokModel riwayatTambahStok = new RiwayatTambahStokModel();
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         List<MitraModel> listMitra = mitraService.getListMitra();

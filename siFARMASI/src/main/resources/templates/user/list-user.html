@@ -7,9 +7,10 @@
       class="absolute inset-x-0 top-0 z-50"
       th:insert="nav.html :: nav('feature5')"
   ></header>
+<!--  Section Admin-->
   <section class="container p-20 mt-16">
-    <h2 class="text-2xl font-semibold mb-4">User List</h2>
-    <div th:if="${not #lists.isEmpty(listUser)}">
+    <h2 class="text-2xl font-semibold mb-4">Admin List</h2>
+    <div th:if="${not #lists.isEmpty(listAdmin)}">
       <table class="border-collapse table-fixed w-full text-sm">
         <thead>
         <tr>
@@ -36,34 +37,277 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user: ${listUser}">
+        <tr th:each="admin: ${listAdmin}">
           <td
               class="border-b border-gray-300 p-4 pl-8 text-gray-800"
-              th:text="${user.username}"
+              th:text="${admin.username}"
           ></td>
           <td
               class="border-b border-gray-300 p-4 text-gray-800"
-              th:text="${user.nama}"
+              th:text="${admin.nama}"
           ></td>
           <td
               class="border-b border-gray-300 p-4 text-gray-800 capitalize"
-              th:text="${user.role}"
+              th:text="${admin.role}"
           ></td>
           <td
               class="border-b border-gray-300 p-4 pr-8 text-gray-800"
-              th:text="${#temporals.format(user.created_at_timestamp, 'dd MMMM yyyy')}"
+              th:text="${#temporals.format(admin.created_at_timestamp, 'dd MMMM yyyy')}"
           ></td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div th:if="${#lists.isEmpty(listUser)}" class="text-center mt-8">
+    <div th:if="${#lists.isEmpty(listAdmin)}" class="text-center mt-8">
       <img
           src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
           alt="Empty State"
           class="mx-auto w-40 h-40"
       />
-      <p class="text-gray-500 mt-4">No Users to display</p>
+      <p class="text-gray-500 mt-4">No Admin to display</p>
+    </div>
+    <!-- FAB to Add User -->
+    <a href="/user/add" class="fixed bottom-8 right-8">
+      <button
+          class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+      >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+    </a>
+    <!--  Section Apoteker-->
+
+  </section>
+  <section class="container p-20 mt-16">
+    <h2 class="text-2xl font-semibold mb-4">Apoteker List</h2>
+    <div th:if="${not #lists.isEmpty(listApoteker)}">
+      <table class="border-collapse table-fixed w-full text-sm">
+        <thead>
+        <tr>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pl-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Username
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Nama
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Role
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Tanggal Daftar
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="apoteker: ${listApoteker}">
+          <td
+              class="border-b border-gray-300 p-4 pl-8 text-gray-800"
+              th:text="${apoteker.username}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800"
+              th:text="${apoteker.nama}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800 capitalize"
+              th:text="${apoteker.role}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 pr-8 text-gray-800"
+              th:text="${#temporals.format(apoteker.created_at_timestamp, 'dd MMMM yyyy')}"
+          ></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div th:if="${#lists.isEmpty(listApoteker)}" class="text-center mt-8">
+      <img
+          src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
+          alt="Empty State"
+          class="mx-auto w-40 h-40"
+      />
+      <p class="text-gray-500 mt-4">No Apoteker to display</p>
+    </div>
+    <!-- FAB to Add User -->
+    <a href="/user/add" class="fixed bottom-8 right-8">
+      <button
+          class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+      >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+    </a>
+  </section>
+<!--  Dokter section -->
+  <section class="container p-20 mt-16">
+    <h2 class="text-2xl font-semibold mb-4">Dokter List</h2>
+    <div th:if="${not #lists.isEmpty(listDokter)}">
+      <table class="border-collapse table-fixed w-full text-sm">
+        <thead>
+        <tr>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pl-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Username
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Nama
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Role
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Tanggal Daftar
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dokter: ${listDokter}">
+          <td
+              class="border-b border-gray-300 p-4 pl-8 text-gray-800"
+              th:text="${dokter.username}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800"
+              th:text="${dokter.nama}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800 capitalize"
+              th:text="${dokter.role}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 pr-8 text-gray-800"
+              th:text="${#temporals.format(dokter.created_at_timestamp, 'dd MMMM yyyy')}"
+          ></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div th:if="${#lists.isEmpty(listDokter)}" class="text-center mt-8">
+      <img
+          src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
+          alt="Empty State"
+          class="mx-auto w-40 h-40"
+      />
+      <p class="text-gray-500 mt-4">No Dokter to display</p>
+    </div>
+    <!-- FAB to Add User -->
+    <a href="/user/add" class="fixed bottom-8 right-8">
+      <button
+          class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+      >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+    </a>
+  </section>
+  <section class="container p-20 mt-16">
+    <h2 class="text-2xl font-semibold mb-4">Manager List</h2>
+    <div th:if="${not #lists.isEmpty(listManager)}">
+      <table class="border-collapse table-fixed w-full text-sm">
+        <thead>
+        <tr>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pl-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Username
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Nama
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Role
+          </th>
+          <th
+              class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
+          >
+            Tanggal Daftar
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="manager: ${listManager}">
+          <td
+              class="border-b border-gray-300 p-4 pl-8 text-gray-800"
+              th:text="${manager.username}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800"
+              th:text="${manager.nama}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 text-gray-800 capitalize"
+              th:text="${manager.role}"
+          ></td>
+          <td
+              class="border-b border-gray-300 p-4 pr-8 text-gray-800"
+              th:text="${#temporals.format(manager.created_at_timestamp, 'dd MMMM yyyy')}"
+          ></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div th:if="${#lists.isEmpty(listManager)}" class="text-center mt-8">
+      <img
+          src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
+          alt="Empty State"
+          class="mx-auto w-40 h-40"
+      />
+      <p class="text-gray-500 mt-4">No Manager to display</p>
     </div>
     <!-- FAB to Add User -->
     <a href="/user/add" class="fixed bottom-8 right-8">

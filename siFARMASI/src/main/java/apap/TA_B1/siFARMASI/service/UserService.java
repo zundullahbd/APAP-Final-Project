@@ -9,6 +9,10 @@ public interface UserService {
     UserModel getUserById(Integer id);
 
     List<UserModel> getListUser();
+    List<UserModel> getListAdmin();
+    List<UserModel> getListDokter();
+    List<UserModel> getListApoteker();
+    List<UserModel> getListManager();
 
     UserModel addUser(UserModel user);
 }
