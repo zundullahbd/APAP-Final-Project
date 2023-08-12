@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head.html :: head">
+    <title>Daftar Obat dan Alat Kesehatan</title>
+</head>
+<body>
+<h2>Daftar Obat dan Alat Kesehatan</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nama</th>
+        <th>Stok</th>
+        <th>Jenis</th>
+        <th>Kadaluwarsa</th>
+        <th>Lokasi</th>
+        <th>Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="obatAlkes : ${listObatAlkes}">
+        <td th:text="${obatAlkes.nama}"></td>
+        <td th:text="${obatAlkes.stok}"></td>
+        <td th:text="${obatAlkes.jenisSediaan}"></td>
+        <td th:text="${#dates.format(obatAlkes.kadaluwarsa, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${obatAlkes.lokasi}"></td>
+        <td>
+            <a th:href="@{/obat-alkes/detail-obatalkes/{id}(id=${obatAlkes.id})}">Detail</a>
+            <a th:href="@{/obat-alkes/hapus}(deleteObatAlkes=${obatAlkes.id})" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

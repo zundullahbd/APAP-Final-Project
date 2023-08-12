@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head.html :: head">
+    <title>Detail Obat dan Alat Kesehatan</title>
+</head>
+<body>
+<h2>Detail Obat dan Alat Kesehatan</h2>
+<p><strong>Nama:</strong> <span th:text="${obatAlkes.nama}"></span></p>
+<p><strong>Stok:</strong> <span th:text="${obatAlkes.stok}"></span></p>
+<p><strong>Jenis:</strong> <span th:text="${obatAlkes.jenisSediaan}"></span></p>
+<p><strong>Kadaluwarsa:</strong> <span th:text="${#dates.format(obatAlkes.kadaluwarsa, 'yyyy-MM-dd HH:mm')}"></span></p>
+<p><strong>Lokasi:</strong> <span th:text="${obatAlkes.lokasi}"></span></p>
+<a th:href="@{/obat-alkes/list-obatalkes}">Kembali ke Daftar</a>
+</body>
+</html>
