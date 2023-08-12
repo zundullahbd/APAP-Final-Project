@@ -25,7 +25,7 @@
         <td th:text="${obatAlkes.lokasi}"></td>
         <td>
             <a th:href="@{/obat-alkes/detail-obatalkes/{id}(id=${obatAlkes.id})}">Detail</a>
-            <a th:href="@{/obat-alkes/hapus}(deleteObatAlkes=${obatAlkes.id})" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</a>
+            <a th:href="@{/obat-alkes/hapus(deleteObatAlkes=${obatAlkes.id})}" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</a>
         </td>
     </tr>
     </tbody>
