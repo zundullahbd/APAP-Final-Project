@@ -1,5 +1,6 @@
 package apap.TA_B1.siFARMASI.service;
 
+
 import apap.TA_B1.siFARMASI.model.ResepModel;
 import apap.TA_B1.siFARMASI.repository.ResepDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,4 @@ public class ResepServiceImpl implements ResepService {
         resep.setCreated_at(now);
         resepDb.save(resep);
     }
-
-
 }

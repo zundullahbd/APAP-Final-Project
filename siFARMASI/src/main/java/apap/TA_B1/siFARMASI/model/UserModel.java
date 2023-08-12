@@ -20,8 +20,12 @@ import java.util.List;
 @Entity
 public class UserModel implements Serializable {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "is_sso", nullable = false)
+    private Boolean isSso=false;
 
     @NotNull
     @Size(max = 50)
@@ -46,6 +50,11 @@ public class UserModel implements Serializable {
     @NotNull
     @Column(name = "created_at_timestamp", nullable = false)
     private Instant created_at_timestamp;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @OneToMany(mappedBy = "id_user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ResepModel> listResep;
