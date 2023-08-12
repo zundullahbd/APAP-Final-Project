@@ -3,6 +3,7 @@ package apap.TA_B1.siFARMASI.controller;
 import apap.TA_B1.siFARMASI.model.JwtSignUpRequest;
 import apap.TA_B1.siFARMASI.model.UserModel;
 import apap.TA_B1.siFARMASI.repository.UserDb;
+import apap.TA_B1.siFARMASI.security.xml.Attributtes;
 import apap.TA_B1.siFARMASI.security.xml.ServiceResponse;
 import apap.TA_B1.siFARMASI.service.UserService;
 import apap.TA_B1.siFARMASI.setting.Setting;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.Instant;
 
 
 @CrossOrigin
@@ -86,37 +90,40 @@ public class PageController {
             HttpServletRequest request
     )
     {
-        var serviceResponse = this.webClient.get().uri(
+        ServiceResponse serviceResponse = this.webClient.get().uri(
                 String.format(
-                        Setting.SERVER_VALIDATE_TICKET, ticket, Setting.CLIENT_LOGIN
+                        Setting.SERVER_VALIDATE_TICKET,
+                        ticket,
+                        Setting.CLIENT_LOGIN
                 )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
-        if (serviceResponse != null) {
-            var attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
-            var username = serviceResponse.getAuthenticationSuccess().getUser();
+
+        Attributtes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
+        String username = serviceResponse.getAuthenticationSuccess().getUser();
 
 
-            var user = userService.getUserByNama(username);
+        UserModel user = userService.getUserByNama(username);
 
-            if (user == null) {
-                    user = new UserModel();
-                    user.setEmail(username + "@ui.ac.id");
-                    user.setName(attributes.getNama());
-                    user.setPassword("sifarmasi");
-                    user.setUsername(username);
-                    user.setIsSso(true);
-                    user.setRole("ADMIN");
-                    userService.addUser(user);
-                }
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username, "sifarmasi");
-
-            var securityContext = SecurityContextHolder.getContext();
-            securityContext.setAuthentication(authentication);
-
-            var httpSession = request.getSession(true);
-            httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-
+        if (user == null) {
+            user = new UserModel();
+            user.setEmail(username + "@ui.ac.id");
+            user.setName(attributes.getNama());
+            user.setPassword("sifarmasi");
+            user.setUsername(username);
+            user.setIsSso(true);
+            user.setRole("ADMIN");
+            user.setCreated_at_timestamp(Instant.now());
+            userService.addUser(user);
         }
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "sifarmasi");
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
+
+        HttpSession httpSession = request.getSession(true);
+        httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+
+
         return new ModelAndView("redirect:/");
     }
 
@@ -128,7 +135,7 @@ public class PageController {
     @GetMapping(value = "/logout-sso")
     public ModelAndView logoutSSO(Principal principal) {
         UserModel user = userService.getUserByNama(principal.getName());
-        if (!user.getRole().equals("ADMIN")) {
+        if (user.getIsSso()==false) {
             return new ModelAndView("redirect:/logout");
         }
         return new ModelAndView("redirect:" + Setting.SERVER_LOGOUT + Setting.CLIENT_LOGOUT);
