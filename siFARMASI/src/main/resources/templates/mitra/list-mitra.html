@@ -1,117 +1,344 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="head.html :: head" th:with="title='Mitra List'"></head>
+  <head th:insert="head.html :: head" th:with="title='Mitra List'"> </head>
   <body>
     <div class="bg-white">
       <header
         class="absolute inset-x-0 top-0 z-50"
         th:insert="nav.html :: nav('feature5')"
       ></header>
-      <section class="container p-20 mt-16">
-        <h2 class="text-2xl font-semibold mb-4">Mitra List</h2>
-        <div th:if="${not #lists.isEmpty(listMitra)}">
-          <table class="border-collapse table-fixed w-full text-sm">
-            <thead>
-              <tr>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pl-8 pt-0 pb-3 text-gray-600 text-left"
+      <section class="py-20 mt-16">
+        <h2 class="px-20 text-2xl font-semibold mb-4">Mitra List</h2>
+        <table class="border-collapse table-fixed w-full text-sm">
+          <thead>
+            <tr>
+              <th class="font-medium p-4 pl-20 pb-3 text-gray-900 text-left">
+                Nama
+              </th>
+              <th class="font-medium p-4 pb-3 text-gray-900 text-left">
+                Alamat
+              </th>
+              <th class="font-medium p-4 pb-3 text-gray-900 text-left">
+                Jenis
+              </th>
+              <th class="font-medium p-4 pb-3 text-gray-900 text-left">
+                Kontak
+              </th>
+              <th class="font-medium p-4 pb-3 text-gray-900 text-left">
+                Tanggal Mulai Kerjasama
+              </th>
+              <th class="font-medium p-4 pr-20 pb-3 text-gray-900 text-left">
+                Aksi
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <div
+                th:if="${#lists.isEmpty(listMitra)}"
+                class="text-center mt-8"
+              >
+                <img
+                  src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
+                  alt="Empty State"
+                  class="mx-auto w-40 h-40"
+                />
+                <p class="text-gray-500 mt-4">No Mitras to display</p>
+              </div>
+            </tr>
+            <th:block th:each="mitra: ${listMitra}">
+              <tr
+                class="mitra-row border-t border-gray-300 transition-colors cursor-pointer hover:bg-gray-100"
+              >
+                <form
+                  th:action="@{/mitra/edit/{id}(id=${mitra.id})}"
+                  th:object="${mitra}"
+                  method="POST"
                 >
-                  Nama
-                </th>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pt-0 pb-3 text-gray-600 text-left"
-                >
-                  Alamat
-                </th>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
-                >
-                  Jenis
-                </th>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
-                >
-                  Kontak
-                </th>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
-                >
-                  Tanggal Mulai Kerjasama
-                </th>
-                <th
-                  class="border-b border-gray-300 font-medium p-4 pr-8 pt-0 pb-3 text-gray-600 text-left"
-                >
-                  Aksi
-                </th>
+                  <td class="relative p-4 pl-20 text-gray-800">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6 stroke-current absolute left-8 top-1/2 -translate-y-1/2 transition-transform"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M6 9L12 15L18 9"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <p
+                      class="display px-2.5 h-5 w-full"
+                      th:text="${mitra.nama}"
+                    ></p>
+                    <input
+                      type="text"
+                      class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                      th:value="${mitra.nama}"
+                      name="nama"
+                      required
+                    />
+                  </td>
+                  <td class="p-4 text-gray-800 align-middle">
+                    <p
+                      class="display px-2.5 h-5 w-full"
+                      th:text="${mitra.alamat}"
+                    ></p>
+                    <input
+                      type="text"
+                      class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                      th:value="${mitra.alamat}"
+                      name="alamat"
+                      required
+                    />
+                  </td>
+                  <td class="p-4 text-gray-800 align-middle">
+                    <p
+                      class="display px-2.5 h-5 w-full"
+                      th:text="${mitra.jenis}"
+                    ></p>
+                    <input
+                      type="text"
+                      class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                      th:value="${mitra.jenis}"
+                      name="jenis"
+                      required
+                    />
+                  </td>
+                  <td class="p-4 text-gray-800 align-middle">
+                    <p
+                      class="display px-2.5 h-5 w-full"
+                      th:text="${mitra.kontak}"
+                    ></p>
+                    <input
+                      type="text"
+                      class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                      th:value="${mitra.kontak}"
+                      name="kontak"
+                      required
+                    />
+                  </td>
+                  <td class="p-4 text-gray-800 align-middle">
+                    <p
+                      class="display px-2.5 h-5 w-full"
+                      th:text="${mitra.tanggalKerjasama}"
+                    ></p>
+
+                    <input
+                      type="date"
+                      th:datetime="${#dates.format(tanggalKerjasama, 'yyyy-MM-dd')}"
+                      class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                      th:value="${mitra.tanggalKerjasama}"
+                      name="tanggalKerjasama"
+                      required
+                    />
+                  </td>
+                  <td class="p-4 pr-20 text-gray-800 flex">
+                    <button
+                      type="button"
+                      class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
+                    >
+                      Edit
+                    </button>
+                    <a
+                      th:href="@{/mitra/delete/{id}(id=${mitra.id})}"
+                      class="delete-button"
+                    >
+                      <button
+                        type="button"
+                        class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                      >
+                        Delete
+                      </button>
+                    </a>
+
+                    <button
+                      type="button"
+                      class="cancel-button hidden text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      class="save-button hidden text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
+                    >
+                      Save
+                    </button>
+                  </td>
+                </form>
               </tr>
-            </thead>
-            <tbody>
-              <tr th:each="mitra: ${listMitra}">
-                <td
-                  class="border-b border-gray-300 p-4 pl-8 text-gray-800"
-                  th:text="${mitra.nama}"
-                ></td>
-                <td
-                  class="border-b border-gray-300 p-4 text-gray-800"
-                  th:text="${mitra.alamat}"
-                ></td>
-                <td
-                  class="border-b border-gray-300 p-4 pr-8 text-gray-800"
-                  th:text="${mitra.jenis}"
-                ></td>
-                <td
-                  class="border-b border-gray-300 p-4 pr-8 text-gray-800"
-                  th:text="${mitra.kontak}"
-                ></td>
-                <td
-                  class="border-b border-gray-300 p-4 pr-8 text-gray-800"
-                  th:text="${mitra.tanggalKerjasama}"
-                ></td>
-                <td class="border-b border-gray-300 p-4 pr-8 text-gray-800 flex">
-                  <a
-                    th:href="@{/mitra/edit/{id}(id=${mitra.id})}"
-                    class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
-                    >Edit</a
-                  >
-                  <a
-                    th:href="@{/mitra/delete/{id}(id=${mitra.id})}"
-                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    >Delete</a
-                  >
+              <tr
+                class="expanded-details hidden border-t border-t-gray-200 bg-gray-100 shadow-inner"
+              >
+                <td colspan="6">
+                  <div class="mx-20 px-8 py-5">test</div>
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-        <div th:if="${#lists.isEmpty(listMitra)}" class="text-center mt-8">
-          <img
-            src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
-            alt="Empty State"
-            class="mx-auto w-40 h-40"
-          />
-          <p class="text-gray-500 mt-4">No Mitras to display</p>
-        </div>
-        <!-- FAB to Add Mitra -->
-        <a href="/mitra/add" class="fixed bottom-8 right-8">
-          <button
-            class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </button>
-        </a>
+            </th:block>
+            <tr class="border-t border-gray-300">
+              <form
+                th:action="@{/mitra/add}"
+                th:object="${mitra}"
+                method="POST"
+              >
+                <td class="p-4 pl-20 text-gray-800">
+                  <input
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                    name="nama"
+                    placeholder="Nama Mitra"
+                    required
+                  />
+                </td>
+                <td class="p-4 text-gray-800 align-middle">
+                  <input
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                    name="alamat"
+                    placeholder="Alamat Mitra"
+                    required
+                  />
+                </td>
+                <td class="p-4 text-gray-800 align-middle">
+                  <input
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                    name="jenis"
+                    placeholder="Jenis Mitra"
+                    required
+                  />
+                </td>
+                <td class="p-4 text-gray-800 align-middle">
+                  <input
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                    name="kontak"
+                    placeholder="Kontak Mitra"
+                    required
+                  />
+                </td>
+                <td class="p-4 text-gray-800 align-middle">
+                  <input
+                    type="date"
+                    th:datetime="${#dates.format(tanggalKerjasama, 'yyyy-MM-dd')}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
+                    name="tanggalKerjasama"
+                    placeholder="Tanggal Mulai Kerjasama"
+                    required
+                  />
+                </td>
+                <td class="p-4 pr-20 text-gray-800 flex">
+                  <button
+                    type="submit"
+                    class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
+                  >
+                    Add
+                  </button>
+                </td>
+              </form>
+            </tr>
+          </tbody>
+        </table>
+        <script>
+          document
+            .querySelectorAll(".edit-button")
+            .forEach(function (editButton) {
+              editButton.addEventListener("click", function () {
+                var row = editButton.closest("tr");
+                row.classList.add("editing");
+                row
+                  .querySelectorAll(".display")
+                  .forEach(function (displayElement) {
+                    displayElement.classList.add("hidden");
+                  });
+                row.querySelectorAll(".edit").forEach(function (editElement) {
+                  editElement.classList.remove("hidden");
+                });
+                row.querySelector(".edit-button").classList.add("hidden");
+                row.querySelector(".delete-button").classList.add("hidden");
+                row.querySelector(".cancel-button").classList.remove("hidden");
+                row.querySelector(".save-button").classList.remove("hidden");
+              });
+            });
+
+          document
+            .querySelectorAll(".save-button")
+            .forEach(function (saveButton) {
+              saveButton.addEventListener("click", function () {
+                var row = saveButton.closest("tr");
+                // Here you would send the updated values to the server.
+                // For now, we'll just switch back to display mode.
+                row.classList.remove("editing");
+                row
+                  .querySelectorAll(".display")
+                  .forEach(function (displayElement) {
+                    displayElement.classList.remove("hidden");
+                  });
+                row.querySelectorAll(".edit").forEach(function (editElement) {
+                  editElement.classList.add("hidden");
+                });
+                row.querySelector(".edit-button").classList.remove("hidden");
+                row.querySelector(".delete-button").classList.remove("hidden");
+                row.querySelector(".cancel-button").classList.add("hidden");
+                row.querySelector(".save-button").classList.add("hidden");
+              });
+            });
+
+          document
+            .querySelectorAll(".cancel-button")
+            .forEach(function (cancelButton) {
+              cancelButton.addEventListener("click", function () {
+                var row = cancelButton.closest("tr");
+                // Here you would send the updated values to the server.
+                // For now, we'll just switch back to display mode.
+                row.classList.remove("editing");
+                row
+                  .querySelectorAll(".display")
+                  .forEach(function (displayElement) {
+                    displayElement.classList.remove("hidden");
+                  });
+                row.querySelectorAll(".edit").forEach(function (editElement) {
+                  editElement.classList.add("hidden");
+                });
+                row.querySelector(".edit-button").classList.remove("hidden");
+                row.querySelector(".delete-button").classList.remove("hidden");
+                row.querySelector(".cancel-button").classList.add("hidden");
+                row.querySelector(".save-button").classList.add("hidden");
+              });
+            });
+
+          // Get all mitra-row elements
+          var mitraRows = document.querySelectorAll(".mitra-row");
+
+          // Add click event listener to each mitra-row
+          mitraRows.forEach(function (mitraRow) {
+            mitraRow.addEventListener("click", function () {
+              // Get the sibling expanded-details row
+              var expandedDetailsRow = mitraRow.nextElementSibling;
+
+              // Toggle the hidden class of the expanded-details row
+              expandedDetailsRow.classList.toggle("hidden");
+
+              // Select the nearest SVG element within the mitra-row
+              var svgElement = mitraRow.querySelector("svg");
+
+              // Apply the class of "rotate-180" to the SVG element
+              svgElement.classList.toggle("rotate-180");
+            });
+
+            var buttons = document.querySelectorAll("button");
+
+            // Add click event listener to each button
+            buttons.forEach(function (button) {
+              button.addEventListener("click", function (event) {
+                // Stop the click event from bubbling up to the mitra-row
+                event.stopPropagation();
+              });
+            });
+          });
+        </script>
       </section>
       <div
         class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"

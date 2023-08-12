@@ -19,18 +19,169 @@
           <h1 class="text-6xl font-bold text-gray-900">
             Welcome to siFARMASI!
           </h1>
-          <script
-            type="module"
-            src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"
-          ></script>
-          <spline-viewer
-            url="https://prod.spline.design/fJ2ptJKzT-sDkpfO/scene.splinecode"
-          ></spline-viewer>
         </div>
         <div
           class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
         >
+          <div
+            class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-xl bg-white shadow-xl"
+          >
+            <ul class="flex rounded-lg bg-gray-50 shadow-inner p-2 mb-10">
+              <li class="grow">
+                <button
+                  id="signInTab"
+                  class="w-full bg-white hover:text-bg-700 font-semibold text-3xl text-gray-900 rounded-md p-4"
+                >
+                  Sign in
+                </button>
+              </li>
+              <li class="grow">
+                <button
+                  id="signUpTab"
+                  class="w-full hover:bg-gray-200 hover:text-bg-700 font-semibold text-3xl text-gray-400 rounded-md p-4"
+                >
+                  Sign up
+                </button>
+              </li>
+            </ul>
+            <form id="signInForm">
+              <div class="mb-6">
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="admin@mail.com"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="password"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="• • • • • • • • • •"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+              >
+                Sign In
+              </button>
+              <div class="flex items-center my-6">
+                <div class="grow h-0.5 bg-gray-200"></div>
+                <p class="mx-3">or</p>
+                <div class="grow h-0.5 bg-gray-200"></div>
+              </div>
+              <button
+                type="submit"
+                class="flex items-center justify-center text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+              >
+                Sign in with SSO
+              </button>
+            </form>
+            <form id="signUpForm" class="hidden">
+              <div class="mb-6">
+                <label
+                  for="nama"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Nama</label
+                >
+                <input
+                  type="text"
+                  id="nama"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="role"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Role</label
+                >
+                <select
+                  id="role"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  required
+                >
+                  <option value="" disabled selected>Select a role</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Apoteker">Apoteker</option>
+                  <option value="Dokter">Dokter</option>
+                  <option value="Manager">Manager</option>
+                </select>
+              </div>
+              <div class="mb-6">
+                <label
+                  for="username"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Username</label
+                >
+                <input
+                  type="text"
+                  id="username"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="johndoe"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="passwordSignUp"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="passwordSignUp"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="• • • • • • • • • •"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+              >
+                Sign Up
+              </button>
+            </form>
+            <script>
+              const signInTab = document.getElementById("signInTab");
+              const signUpTab = document.getElementById("signUpTab");
+              const signInForm = document.getElementById("signInForm");
+              const signUpForm = document.getElementById("signUpForm");
 
+              signInTab.addEventListener("click", () => {
+                signInTab.classList.add("active", "bg-white", "text-gray-900");
+                signInTab.classList.remove("hover:bg-gray-200");
+                signUpTab.classList.remove("active", "bg-white", "text-gray-900");
+                signInForm.classList.remove("hidden");
+                signUpForm.classList.add("hidden");
+              });
+
+              signUpTab.addEventListener("click", () => {
+                signUpTab.classList.add("active", "bg-white", "text-gray-900");
+                signUpTab.classList.remove("hover:bg-gray-200");
+                signInTab.classList.remove("active", "bg-white", "text-gray-900");
+                signUpForm.classList.remove("hidden");
+                signInForm.classList.add("hidden");
+              });
+            </script>
+          </div>
         </div>
         <div
           class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
