@@ -8,6 +8,7 @@ import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/obat-alkes")
@@ -33,18 +38,19 @@ public class ObatAlkesController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private RiwayatTambahStokDb riwayatTambahStokDb;
 
-    @GetMapping("/daftar-obat-alkes")
+    @GetMapping("/list-obatalkes")
     public String viewAllObatAlkes(Model model){
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         model.addAttribute("listObatAlkes", listObatAlkes);
         return "obatalkes/list-obatalkes";
     }
 
-    @GetMapping("/detail-obat-alkes/{id}")
-    public String detailObatAlkes(@PathVariable Long id,Model model){
+    @GetMapping("/detail-obatalkes/{id}")
+    public String detailObatAlkes(@PathVariable Integer id,Model model){
         ObatAlkesModel obatAlkes = obatAlkesService.getObatAlkesById(id);
         if (obatAlkes == null){
             model.addAttribute("id", id);
@@ -55,12 +61,35 @@ public class ObatAlkesController {
         }
     }
 
+    @GetMapping("/add-obatalkes")
+    public String addNewObatAlkesForm(Model model) {
+        ObatAlkesModel obatAlkes = new ObatAlkesModel();
+        List<MitraModel> listMitra = mitraService.getListMitra();
+        List<String> listKategori = Arrays.asList("Bebas Terbatas", "Bebas", "Keras", "Keras Tertentu", "Narkotika");
+        List<String> listJenisSediaan = Arrays.asList("Tablet", "Kaplet", "Kapsul", "Buah");
+        List<String> listKemasanSimpan = Arrays.asList("Strip", "Box", "Botol", "Lainnya");
+
+        return "obatalkes/form-add-new-obatalkes";
+    }
+
+    @PostMapping("/add-obatalkes")
+    public String addNewObatAlkes(
+            @Valid @ModelAttribute ObatAlkesModel obatAlkes,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "obatalkes/form-add-new-obatalkes";
+        } else {
+            obatAlkesService.addObatAlkes(obatAlkes);
+            return "redirect:/obatalkes"; // Redirect to the list view
+        }
+    }
+
     @PostMapping("/hapus")
     private String hapusTiket(
         final HttpServletRequest rowId,
         Model model
     ){
-        int obatAlkesIdRow = Integer.valueOf(rowId.getParameter("deleteObatAlkes"));
+        int obatAlkesIdRow = Integer.parseInt(rowId.getParameter("deleteObatAlkes"));
         ObatAlkesModel obatAlkes = obatAlkesService.getListObatAlkes().get(obatAlkesIdRow);
         model.addAttribute("namaObatAlkes", obatAlkes.getNama());
         obatAlkesService.deleteObatAlkes(obatAlkes);
@@ -79,7 +108,7 @@ public class ObatAlkesController {
         model.addAttribute("listObatAlkes", listObatAlkes);
         model.addAttribute("listMitra", listMitra);
 
-        return "obatalkes/form-add-obatalkes.html";
+        return "obatalkes/form-add-obatalkes";
     }
 
     @PostMapping("/input-obat-alkes")

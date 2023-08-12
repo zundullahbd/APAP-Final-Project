@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head.html :: head">
+    <title>siFarmasi</title>
+</head>
+<body>
+<form th:action="@{/add-obatalkes}" th:object="${obatAlkes}" method="post" enctype="multipart/form-data">
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" th:field="${obatAlkes.nama}" required>
+
+    <label for="mitra">Nama Mitra:</label>
+    <select id="mitra" th:field="${obatAlkes.idMitra.id}">
+        <option th:each="mitra : ${listMitra}" th:value="${mitra.id}" th:text="${mitra.nama}"></option>
+    </select>
+
+    <label for="kategori">Kategori Obat:</label>
+    <select id="kategori" th:field="${obatAlkes.kategoriObat}">
+        <option th:each="kategori : ${listKategori}" th:value="${kategori}" th:text="${kategori}"></option>
+    </select>
+
+    <label for="sediaan">Jenis Sediaan:</label>
+    <select id="sediaan" th:field="${obatAlkes.jenisSediaan}">
+        <option th:each="sediaan : ${listJenisSediaan}" th:value="${sediaan}" th:text="${sediaan}"></option>
+    </select>
+
+    <label for="kemasanSimpan">Kemasan Simpan:</label>
+    <select id="kemasanSimpan" th:field="${obatAlkes.kemasanSimpan}">
+        <option th:each="kemasan : ${listKemasanSimpan}" th:value="${kemasan}" th:text="${kemasan}"></option>
+    </select>
+
+    <label for="kemasanBeli">Kemasan Beli:</label>
+    <input type="text" id="kemasanBeli" th:field="${obatAlkes.kemasanBeli}">
+
+    <label for="hargaBeli">Harga Beli:</label>
+    <input type="number" id="hargaBeli" th:field="${obatAlkes.hargaBeli}" required>
+
+    <label for="hargaJual">Harga Jual:</label>
+    <input type="number" id="hargaJual" th:field="${obatAlkes.hargaJual}" required>
+
+    <label for="stok">Stok:</label>
+    <input type="number" id="stok" th:field="${obatAlkes.stok}" required>
+
+    <label for="kadaluwarsa">Kadaluwarsa:</label>
+    <input type="datetime-local" id="kadaluwarsa" th:field="${obatAlkes.kadaluwarsa}" required>
+
+    <label for="lokasi">Lokasi:</label>
+    <input type="text" id="lokasi" th:field="${obatAlkes.lokasi}">
+
+    <label for="file">Upload File:</label>
+    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

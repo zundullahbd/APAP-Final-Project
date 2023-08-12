@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ObatAlkesDb extends JpaRepository<ObatAlkesModel, Integer> {
-    ObatAlkesModel getObatAlkesById(Long id);
+    ObatAlkesModel getObatAlkesById(Integer id);
 }
