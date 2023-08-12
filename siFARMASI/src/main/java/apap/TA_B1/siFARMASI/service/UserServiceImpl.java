@@ -8,6 +8,7 @@ import apap.TA_B1.siFARMASI.model.*;
 import apap.TA_B1.siFARMASI.repository.*;
 
 
+import java.time.Instant;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService{
@@ -21,15 +22,12 @@ public class UserServiceImpl implements UserService{
     private DokterDb dokterDb;
 
     @Autowired
-    private AdminDb adminDb;
-
-    @Autowired
     private ManagerDb managerDb;
 
 
     @Override
-    public UserModel getUserByNama(String nama) {
-        UserModel user = userDb.findByUsername(nama);
+    public UserModel getUserByNama(String name) {
+        UserModel user = userDb.findByUsername(name);
         return user;
     }
 
@@ -65,7 +63,7 @@ public class UserServiceImpl implements UserService{
 
         if (user.getRole().equals("DOKTER")) {
             DokterModel dokter = new DokterModel();
-            dokter.setNama(user.getNama());
+            dokter.setName(user.getName());
             dokter.setRole(user.getRole());
             dokter.setUsername(user.getUsername());
             dokter.setPassword(user.getPassword());
@@ -74,7 +72,7 @@ public class UserServiceImpl implements UserService{
 
         } else if (user.getRole().equals("APOTEKER")) {
             ApotekerModel apoteker = new ApotekerModel();
-            apoteker.setNama(user.getNama());
+            apoteker.setName(user.getName());
             apoteker.setRole(user.getRole());
             apoteker.setUsername(user.getUsername());
             apoteker.setPassword(user.getPassword());
@@ -82,19 +80,49 @@ public class UserServiceImpl implements UserService{
             return apotekerDb.save(apoteker);
         }
         else if (user.getRole().equals("MANAGER")) {
-                ApotekerModel apoteker = new ApotekerModel();
-                apoteker.setNama(user.getNama());
-                apoteker.setRole(user.getRole());
-                apoteker.setUsername(user.getUsername());
-                apoteker.setPassword(user.getPassword());
-                apoteker.setEmail(user.getEmail());
-                return apotekerDb.save(apoteker);
+            ManagerModel manager = new ManagerModel();
+            manager.setName(user.getName());
+            manager.setRole(user.getRole());
+            manager.setUsername(user.getUsername());
+            manager.setPassword(user.getPassword());
+            manager.setEmail(user.getEmail());
+            return managerDb.save(manager);
         } else {
             return userDb.save(user);
         }
 
 
     }
+
+    public void signup(String username, String name, String email, String password, String role) {
+        UserModel existingUserByUsername = userDb.findByUsername(username);
+        UserModel existingUserByEmail = userDb.findByEmail(email);
+
+        if (existingUserByUsername != null) {
+            // Handle username already exists
+            // You can log a message, set a flag, or take any other action
+            return; // Return without proceeding further
+        }
+
+        if (existingUserByEmail != null) {
+            // Handle email already exists
+            // You can log a message, set a flag, or take any other action
+            return; // Return without proceeding further
+        }
+
+        // Create a new user
+        UserModel user = new UserModel();
+        user.setName(name);
+        user.setUsername(username);
+        user.setEmail(email);
+        String pass = encrypt(password);
+        user.setPassword(pass);
+        user.setRole(role);
+        user.setCreated_at_timestamp(Instant.now());
+
+        userDb.save(user);
+    }
+
 
     @Override
     public List<UserModel> getListUser() {

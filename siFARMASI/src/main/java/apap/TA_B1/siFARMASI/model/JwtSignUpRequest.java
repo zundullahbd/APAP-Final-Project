@@ -9,7 +9,7 @@ public class JwtSignUpRequest implements Serializable {
     private String username;
     private String password;
     private String email;
-    private String nama;
+    private String name;
     private String role;
 
 }

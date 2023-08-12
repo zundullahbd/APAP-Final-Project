@@ -14,6 +14,8 @@ public interface UserService {
 
     UserModel deleteUser(UserModel user);
 
+    void signup(String username, String name, String email, String password, String role);
+
     List<UserModel> getListUser();
 
     List<DokterModel> getListDokter();

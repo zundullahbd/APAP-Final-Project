@@ -1,5 +1,6 @@
 package apap.TA_B1.siFARMASI.controller;
 
+import apap.TA_B1.siFARMASI.model.JwtSignUpRequest;
 import apap.TA_B1.siFARMASI.model.UserModel;
 import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.security.xml.ServiceResponse;
@@ -42,7 +43,6 @@ public class PageController {
         return "home";
 
     }
-
     @RequestMapping ("/login")
     public String loginFormPage(Model model) {
         model.addAttribute("port", serverProperties.getPort());
@@ -53,6 +53,29 @@ public class PageController {
     public String loginSubmitPage(Model model) {
         model.addAttribute("port", serverProperties.getPort());
         return "home";
+    }
+    @RequestMapping("/signup")
+    public String signupForm(Model model) {
+        model.addAttribute("signupRequest", new JwtSignUpRequest());
+        return "/auth/signup"; // Return the name of the Thymeleaf template for signup form
+    }
+
+    @PostMapping("/signup")
+    public String signupSubmit(@ModelAttribute JwtSignUpRequest signupRequest, Model model) {
+        UserModel existingUser = userDb.findByUsername(signupRequest.getUsername());
+        if (existingUser != null) {
+            model.addAttribute("error", "Username already exists.");
+            return "auth/signup"; // Return to the signup form with an error message
+        }
+
+        existingUser = userDb.findByEmail(signupRequest.getEmail());
+        if (existingUser != null) {
+            model.addAttribute("error", "Email already exists.");
+            return "auth/signup"; // Return to the signup form with an error message
+        }
+
+        userService.signup(signupRequest.getUsername(), signupRequest.getName(), signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getRole());
+        return "redirect:/login"; // Redirect to the login page after successful signup
     }
 
     private WebClient webClient = WebClient.builder().build();
@@ -78,7 +101,7 @@ public class PageController {
             if (user == null) {
                     user = new UserModel();
                     user.setEmail(username + "@ui.ac.id");
-                    user.setNama(attributes.getNama());
+                    user.setName(attributes.getNama());
                     user.setPassword("sifarmasi");
                     user.setUsername(username);
                     user.setIsSso(true);

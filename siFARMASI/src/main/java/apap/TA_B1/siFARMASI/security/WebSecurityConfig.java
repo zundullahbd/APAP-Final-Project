@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -27,11 +27,11 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("ADMIN", "APOTEKER", "DOKTER", "MANAGER")
+                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
@@ -39,10 +39,12 @@ public class WebSecurityConfig {
                 .formLogin()
                 .loginPage("/login")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll().and()
-                .sessionManagement().sessionFixation().newSession().maximumSessions(1);
-        return http.build();
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login").permitAll()
+                .and()
+                .sessionManagement()
+                .sessionFixation().newSession().maximumSessions(1);
     }
 
     @Autowired

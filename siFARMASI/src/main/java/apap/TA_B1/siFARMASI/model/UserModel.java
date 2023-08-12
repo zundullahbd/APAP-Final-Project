@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "user")
 @Entity
+@DiscriminatorValue(value = "1")
 public class UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,8 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "nama", nullable = false)
-    private String nama;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @NotNull
     @Size(max = 50)

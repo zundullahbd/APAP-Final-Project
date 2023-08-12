@@ -25,7 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
         UserModel user = userDb.findByUsername(username);
         if (user != null) {
             Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
