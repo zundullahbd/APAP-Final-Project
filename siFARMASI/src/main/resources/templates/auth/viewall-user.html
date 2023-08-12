@@ -8,7 +8,6 @@
 </head>
 
 <body>
-<nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container">
     <br>
     <div th:switch="${userRole}">
@@ -32,7 +31,6 @@
             <th>Nama User</th>
             <th>Email User</th>
             <th>Role User</th>
-            <th th:if="${userRole == 'DOKTER'}">Tarif</th>
             <th>Aksi</th>
         </tr>
         </thead>
@@ -40,10 +38,9 @@
         <tr th:each="user, iterationStatus : ${listUser}">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${user.username}"></td>
-            <td th:text="${user.nama}"></td>
+            <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.role}"></td>
-            <td th:if="${userRole == 'DOKTER'}" th:text="${user.tarif}"></td>
             <td><a class="btn btn-danger" th:href="@{/user/delete/} + ${user.username}">hapus</a></td>
         </tr>
         </tbody>

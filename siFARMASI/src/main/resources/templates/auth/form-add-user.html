@@ -18,7 +18,7 @@
                     <input type="text" name="username" class ="form-control"/>
 
                     <label>Nama</label>
-                    <input type="text" name="nama" class ="form-control"/>
+                    <input type="text" name="name" class ="form-control"/>
 
                     <label>E-mail</label>
                     <input type="text" name="email" class ="form-control"/>
@@ -34,10 +34,18 @@
                         <input th:if="${userRole == 'MANAGER'}" name = "role" type="text" value="MANAGER" readonly >
                     </div>
 
+                    <label for="created_at_timestamp">Created At:</label>
+                    <input type="datetime-local" id="created_at_timestamp" name="created_at_timestamp" value="" disabled>
+
                     <br>
                     <button type="submit" class="btn btn-primary" > Submit</button>
                     <a class="btn btn-link" href="/">Home</a>
                 </form>
+                <script>
+                    const createdInput = document.getElementById('created_at_timestamp');
+                    const currentInstant = new Date().toISOString().slice(0, 16);
+                    createdInput.value = currentInstant;
+                </script>
             </div>
 
         </div>

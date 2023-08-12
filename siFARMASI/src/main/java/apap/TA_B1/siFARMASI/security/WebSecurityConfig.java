@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
+                .antMatchers("/main", "/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
