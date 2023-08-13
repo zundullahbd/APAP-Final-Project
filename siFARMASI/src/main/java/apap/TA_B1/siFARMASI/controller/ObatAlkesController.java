@@ -5,7 +5,6 @@ import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.RiwayatTambahStokModel;
 import apap.TA_B1.siFARMASI.repository.RiwayatTambahStokDb;
-import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.UserService;
@@ -13,14 +12,10 @@ import apap.TA_B1.siFARMASI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -43,14 +38,14 @@ public class ObatAlkesController {
     @Autowired
     private RiwayatTambahStokDb riwayatTambahStokDb;
 
-    @GetMapping("/list-obatalkes")
+    @GetMapping("/")
     public String viewAllObatAlkes(Model model){
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         model.addAttribute("listObatAlkes", listObatAlkes);
         return "obatalkes/list-obatalkes";
     }
 
-    @GetMapping("/detail-obatalkes/{id}")
+    @GetMapping("/detail/{id}")
     public String detailObatAlkes(@PathVariable Integer id,Model model){
         ObatAlkesModel obatAlkes = obatAlkesService.getObatAlkesById(id);
         if (obatAlkes == null){
@@ -62,33 +57,38 @@ public class ObatAlkesController {
         }
     }
 
-    @GetMapping("/add-obatalkes")
+    @GetMapping("/add")
     public String addNewObatAlkesForm(Model model) {
         ObatAlkesModel obatAlkes = new ObatAlkesModel();
         List<MitraModel> listMitra = mitraService.getListMitra();
         List<String> listKategori = Arrays.asList("Bebas Terbatas", "Bebas", "Keras", "Keras Tertentu", "Narkotika");
         List<String> listJenisSediaan = Arrays.asList("Tablet", "Kaplet", "Kapsul", "Buah");
         List<String> listKemasanSimpan = Arrays.asList("Strip", "Box", "Botol", "Lainnya");
-
+        model.addAttribute("obatAlkes", obatAlkes);
+        model.addAttribute("listKategori", listKategori);
+        model.addAttribute("listMitra", listMitra);
+        model.addAttribute("listKemasanSimpan", listKemasanSimpan);
+        model.addAttribute("listJenisSediaan", listJenisSediaan);
         return "obatalkes/form-add-new-obatalkes";
     }
 
-    @PostMapping("/add-obatalkes")
-    public String addNewObatAlkes(
-            @Valid @ModelAttribute ObatAlkesModel obatAlkes,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "obatalkes/form-add-new-obatalkes";
-        } else {
-            obatAlkesService.addObatAlkes(obatAlkes);
-            return "redirect:/obatalkes"; // Redirect to the list view
-        }
+    @PostMapping("/add")
+    public String addNewObatAlkesSubmit(@ModelAttribute ObatAlkesModel obatAlkes,
+                                        @RequestParam("file")MultipartFile file) {
+        // Simpan path file dalam objek obatAlkesModel
+        obatAlkes.setPathFile(file.getOriginalFilename());
+
+        // Menyimpan informasi ObatAlkesModel ke basis data
+        obatAlkesService.addObatAlkes(obatAlkes);
+
+        return "redirect:/obat-alkes/"; // Redirect to the list view
     }
+
 
     @PostMapping("/hapus")
     private String hapusTiket(
-        final HttpServletRequest rowId,
-        Model model
+            final HttpServletRequest rowId,
+            Model model
     ){
         int obatAlkesIdRow = Integer.parseInt(rowId.getParameter("deleteObatAlkes"));
         ObatAlkesModel obatAlkes = obatAlkesService.getListObatAlkes().get(obatAlkesIdRow);

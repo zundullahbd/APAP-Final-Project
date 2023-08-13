@@ -1,55 +1,129 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="head.html :: head">
-    <title>siFarmasi</title>
-</head>
+<head th:insert="head.html :: head" th:with="title='siFARMASI'"> </head>
 <body>
-<form th:action="@{/add-obatalkes}" th:object="${obatAlkes}" method="post" enctype="multipart/form-data">
-    <label for="nama">Nama:</label>
-    <input type="text" id="nama" th:field="${obatAlkes.nama}" required>
+<div class="bg-white">
+    <header th:insert="nav.html :: nav('/')"></header>
+    <section class="container max-w-2xl p-20 mt-16">
+        <h2 class="text-2xl font-semibold mb-4 flex gap-3">
+            <a href="/obat-alkes/">
+                <button
+                        class="border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-8 h-8 flex items-center justify-center shadow-lg"
+                >
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                    >
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
+                    </svg>
+                </button>
+            </a>Tambah Obat dan Alat Kesehatan
+        </h2>
+        <form th:action="@{/obat-alkes/add}"
+              th:object="${obatAlkes}"
+              method="POST"
+              enctype="multipart/form-data"
+              class="z-10 p-12 grow border border-gray-500/20 rounded-lg bg-white shadow-xl">
 
-    <label for="mitra">Nama Mitra:</label>
-    <select id="mitra" th:field="${obatAlkes.idMitra.id}">
-        <option th:each="mitra : ${listMitra}" th:value="${mitra.id}" th:text="${mitra.nama}"></option>
-    </select>
+            <!-- Obat Alkes Form Fields -->
+            <div class="mb-6">
+                <label for="nama" class="block mb-2 text-sm font-medium text-gray-900">Nama:</label>
+                <input type="text" id="nama" th:field="${obatAlkes.nama}" class="input-field" required>
+            </div>
 
-    <label for="kategori">Kategori Obat:</label>
-    <select id="kategori" th:field="${obatAlkes.kategoriObat}">
-        <option th:each="kategori : ${listKategori}" th:value="${kategori}" th:text="${kategori}"></option>
-    </select>
+            <div class="mb-6">
+                <label for="mitra" class="block mb-2 text-sm font-medium text-gray-900">Nama Mitra:</label>
+                <select id="mitra" th:field="${obatAlkes.idMitra.id}" class="input-field">
+                    <option th:each="mitra : ${listMitra}" th:value="${mitra.id}" th:text="${mitra.nama}"></option>
+                </select>
+            </div>
 
-    <label for="sediaan">Jenis Sediaan:</label>
-    <select id="sediaan" th:field="${obatAlkes.jenisSediaan}">
-        <option th:each="sediaan : ${listJenisSediaan}" th:value="${sediaan}" th:text="${sediaan}"></option>
-    </select>
+            <div class="mb-6">
+                <label for="kategori" class="block mb-2 text-sm font-medium text-gray-900">Kategori Obat:</label>
+                <select id="kategori" th:field="${obatAlkes.kategoriObat}" class="input-field">
+                    <option th:each="kategori : ${listKategori}" th:value="${kategori}" th:text="${kategori}"></option>
+                </select>
+            </div>
 
-    <label for="kemasanSimpan">Kemasan Simpan:</label>
-    <select id="kemasanSimpan" th:field="${obatAlkes.kemasanSimpan}">
-        <option th:each="kemasan : ${listKemasanSimpan}" th:value="${kemasan}" th:text="${kemasan}"></option>
-    </select>
+            <div class="mb-6">
+                <label for="sediaan" class="block mb-2 text-sm font-medium text-gray-900">Jenis Sediaan:</label>
+                <select id="sediaan" th:field="${obatAlkes.jenisSediaan}" class="input-field">
+                    <option th:each="sediaan : ${listJenisSediaan}" th:value="${sediaan}" th:text="${sediaan}"></option>
+                </select>
+            </div>
 
-    <label for="kemasanBeli">Kemasan Beli:</label>
-    <input type="text" id="kemasanBeli" th:field="${obatAlkes.kemasanBeli}">
+            <div class="mb-6">
+                <label for="kemasanSimpan" class="block mb-2 text-sm font-medium text-gray-900">Kemasan Simpan:</label>
+                <select id="kemasanSimpan" th:field="${obatAlkes.kemasanSimpan}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm">
+                    <option th:each="kemasan : ${listKemasanSimpan}" th:value="${kemasan}" th:text="${kemasan}"></option>
+                </select>
+            </div>
 
-    <label for="hargaBeli">Harga Beli:</label>
-    <input type="number" id="hargaBeli" th:field="${obatAlkes.hargaBeli}" required>
+            <div class="mb-6">
+                <label for="kemasanBeli" class="block mb-2 text-sm font-medium text-gray-900">Kemasan Beli:</label>
+                <input type="text" id="kemasanBeli" th:field="${obatAlkes.kemasanBeli}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm">
+            </div>
 
-    <label for="hargaJual">Harga Jual:</label>
-    <input type="number" id="hargaJual" th:field="${obatAlkes.hargaJual}" required>
+            <div class="mb-6">
+                <label for="hargaBeli" class="block mb-2 text-sm font-medium text-gray-900">Harga Beli:</label>
+                <input type="number" id="hargaBeli" th:field="${obatAlkes.hargaBeli}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                       required>
+            </div>
 
-    <label for="stok">Stok:</label>
-    <input type="number" id="stok" th:field="${obatAlkes.stok}" required>
+            <div class="mb-6">
+                <label for="hargaJual" class="block mb-2 text-sm font-medium text-gray-900">Harga Jual:</label>
+                <input type="number" id="hargaJual" th:field="${obatAlkes.hargaJual}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                       required>
+            </div>
 
-    <label for="kadaluwarsa">Kadaluwarsa:</label>
-    <input type="datetime-local" id="kadaluwarsa" th:field="${obatAlkes.kadaluwarsa}" required>
+            <div class="mb-6">
+                <label for="stok" class="block mb-2 text-sm font-medium text-gray-900">Stok:</label>
+                <input type="number" id="stok" th:field="${obatAlkes.stok}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                       required>
+            </div>
 
-    <label for="lokasi">Lokasi:</label>
-    <input type="text" id="lokasi" th:field="${obatAlkes.lokasi}">
+            <div class="mb-6">
+                <label for="kadaluwarsa" class="block mb-2 text-sm font-medium text-gray-900">Kadaluwarsa:</label>
+                <input type="date"
+                       id="kadaluwarsa"
+                       th:field="${obatAlkes.kadaluwarsa}"
+                       th:datetime="${#dates.format(obatAlkes.kadaluwarsa, 'yyyy-MM-dd')}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                       required />
+            </div>
 
-    <label for="file">Upload File:</label>
-    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+            <div class="mb-6">
+                <label for="lokasi" class="block mb-2 text-sm font-medium text-gray-900">Lokasi:</label>
+                <input type="text" id="lokasi" th:field="${obatAlkes.lokasi}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                       required>
+            </div>
 
-    <input type="submit" value="Submit"/>
-</form>
+            <div class="mb-6">
+                <label for="file" class="block mb-2 text-sm font-medium text-gray-900">Upload File:</label>
+                <input type="file" id="file" name="file" class="input-field" required />
+            </div>
+            <button
+                    type="submit"
+                    class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+            >
+                Submit
+            </button>
+        </form>
+    </section>
+</div>
 </body>
 </html>
