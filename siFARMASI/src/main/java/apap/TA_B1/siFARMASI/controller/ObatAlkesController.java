@@ -13,15 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/obat-alkes")
@@ -48,13 +44,8 @@ public class ObatAlkesController {
     @GetMapping("/detail/{id}")
     public String detailObatAlkes(@PathVariable Integer id,Model model){
         ObatAlkesModel obatAlkes = obatAlkesService.getObatAlkesById(id);
-        if (obatAlkes == null){
-            model.addAttribute("id", id);
-            return "obatalkes/obatalkes-not-found";
-        }else{
             model.addAttribute("obatAlkes", obatAlkes);
             return "obatalkes/detail-obatalkes";
-        }
     }
 
     @GetMapping("/add")
@@ -84,18 +75,10 @@ public class ObatAlkesController {
         return "redirect:/obat-alkes/"; // Redirect to the list view
     }
 
-
-    @PostMapping("/hapus")
-    private String hapusTiket(
-            final HttpServletRequest rowId,
-            Model model
-    ){
-        int obatAlkesIdRow = Integer.parseInt(rowId.getParameter("deleteObatAlkes"));
-        ObatAlkesModel obatAlkes = obatAlkesService.getListObatAlkes().get(obatAlkesIdRow);
-        model.addAttribute("namaObatAlkes", obatAlkes.getNama());
-        obatAlkesService.deleteObatAlkes(obatAlkes);
-        return "obatalkes/delete-obatalkes";
-
+    @GetMapping("/delete/{id}")
+    public String deleteObatAlkes(@PathVariable Integer id) {
+        obatAlkesService.deleteObatAlkes(id);
+        return "redirect:/obat-alkes/";
     }
 
 

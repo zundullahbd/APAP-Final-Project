@@ -6,11 +6,20 @@
 <body>
 <div class="bg-white">
     <header class="absolute inset-x-0 top-0 z-50"
-            th:insert="nav.html :: nav('feature5')">
+            th:insert="nav.html :: nav('obatAlkes')">
     </header>
     <section class="py-20 mt-16">
-        <h2 class="px-20 text-2xl font-semibold mb-4">Daftar Obat dan Alat Kesehatan</h2>
-        <table class="border-collapse table-fixed w-full text-sm">
+        <h2 class="px-20 text-2xl font-semibold mb-4 flex justify-between items-center">Daftar Obat dan Alat Kesehatan
+            <a href="/obat-alkes/add"
+               class="flex justify-end pr-20 mb-4">
+                <button class="text-white border border-sky-500 bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-8 h-8 flex items-center justify-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                </button>
+            </a>
+        </h2>
+            <table class="border-collapse table-fixed w-full text-sm">
             <thead>
             <tr>
                 <th class="font-medium p-4 pl-20 pb-3 text-gray-900 text-left">Nama</th>
@@ -46,14 +55,11 @@
                             Detail
                         </button>
                         </a>
-                        <a
-                                th:href="@{/obat-alkes/delete/{id}(id=${obatAlkes.id})}"
-                                class="delete-button"
+                        <a th:href="@{/obat-alkes/delete/{id}(id=${obatAlkes.id})}"
+                           class="delete-button"
                         >
-                            <button
-                                    type="button"
-                                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
-                            >
+                            <button type="button"
+                                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">
                                 Delete
                             </button>
                         </a>
@@ -63,6 +69,7 @@
             </tbody>
         </table>
     </section>
+
     <div
             class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none">
         <div
