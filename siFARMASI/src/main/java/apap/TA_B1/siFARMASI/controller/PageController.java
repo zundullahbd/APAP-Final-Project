@@ -46,6 +46,7 @@ public class PageController {
     public String home(Principal principal, Model model) {
         UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);
+        System.out.println(user.getRole());
         return "home";
 
     }
@@ -130,7 +131,7 @@ public class PageController {
         if (user == null) {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
-            user.setName(attributes.getName());
+            user.setName(attributes.getNama());
             user.setPassword("sifarmasi");
             user.setUsername(username);
             user.setIsSso(true);
