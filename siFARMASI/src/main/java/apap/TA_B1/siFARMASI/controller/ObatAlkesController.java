@@ -3,7 +3,6 @@ package apap.TA_B1.siFARMASI.controller;
 import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.RiwayatTambahStokModel;
-<<<<<<< siFARMASI/src/main/java/apap/TA_B1/siFARMASI/controller/ObatAlkesController.java
 import apap.TA_B1.siFARMASI.repository.RiwayatTambahStokDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
@@ -36,14 +35,12 @@ public class ObatAlkesController {
     private MitraService mitraService;
 
     @Autowired
-<<<<<<< siFARMASI/src/main/java/apap/TA_B1/siFARMASI/controller/ObatAlkesController.java
     private UserService userService;
 
     @Autowired
     private RiwayatTambahStokDb riwayatTambahStokDb;
-=======
+
     private RiwayatTambahStokService riwayatTambahStokService;
->>>>>>> siFARMASI/src/main/java/apap/TA_B1/siFARMASI/controller/ObatAlkesController.java
 
     @GetMapping("/")
     public String viewAllObatAlkes(Model model){
