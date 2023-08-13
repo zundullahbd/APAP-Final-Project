@@ -35,22 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/main", "/signup").permitAll() // Allow public access to home and signup
+                .authorizeHttpRequests()
+                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                .antMatchers("/mitra/**").hasAnyAuthority("ADMIN", "APOTEKER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll()
-                .and()
-                .sessionManagement()
-                .sessionFixation().newSession().maximumSessions(1);
+                .formLogin(login -> login
+                        .loginPage("/login"))
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login").permitAll())
+                .sessionManagement(management -> management
+                        .sessionFixation().newSession().maximumSessions(1));
     }
 
     @Autowired

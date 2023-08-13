@@ -5,7 +5,7 @@
     <div class="bg-white">
       <header
         class="absolute inset-x-0 top-0 z-50"
-        th:insert="nav.html :: nav('/')"
+        th:insert="nav.html :: nav('resep')"
       ></header>
       <section class="p-20 pr-0 space-x-20 justify-center">
         <div>
@@ -21,7 +21,7 @@
           >
             <div class="mb-6">
               <label class="block mb-2 text-sm font-medium text-gray-900"
-                >Nama Obat / Alkes</label
+                >Name Obat / Alkes</label
               >
               <select
                 class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
@@ -33,7 +33,7 @@
                 <option
                   th:each="obatalkes : ${listObatAlkes}"
                   th:value="${obatalkes.id}"
-                  th:text="${obatalkes.nama}"
+                  th:text="${obatalkes.name}"
                 ></option>
               </select>
             </div>

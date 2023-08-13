@@ -29,7 +29,7 @@ public class UserController {
         var user =(User) authentication.getPrincipal();
 
         var username = user.getUsername();
-        var userModel = userService.getUserByNama(username);
+        var userModel = userService.getUserByName(username);
 
         model.addAttribute("listUser", listUser);
         model.addAttribute("user", userModel);
@@ -42,7 +42,7 @@ public class UserController {
         var authenticationUser = (User) authentication.getPrincipal();
 
         var authenticationUsername = authenticationUser.getUsername();
-        var userModel = userService.getUserByNama(authenticationUsername);
+        var userModel = userService.getUserByName(authenticationUsername);
         if(userModel.getRole().equals("ADMIN")){
             List<String> role = new ArrayList<>();
             role.add("ADMIN");
@@ -63,7 +63,7 @@ public class UserController {
 
 
         var authenticationUsername = authenticationUser.getUsername();
-        var userModel = userService.getUserByNama(authenticationUsername);
+        var userModel = userService.getUserByName(authenticationUsername);
         var user = new UserModel();
 
         if(userModel.getRole().equals("ADMIN")){
@@ -92,24 +92,24 @@ public class UserController {
         var authenticationUser = (User) auth.getPrincipal();
 
         var authenticationUsername = authenticationUser.getUsername();
-        var userModel = userService.getUserByNama(authenticationUsername);
+        var userModel = userService.getUserByName(authenticationUsername);
 
         if(userModel.getRole().equals("ADMIN")){
             if(role.equals("DOKTER")){
                 user.setRole("DOKTER");
                 userService.addUserWithRole(user);
-                model.addAttribute("namaUser", user.getUsername());
+                model.addAttribute("nameUser", user.getUsername());
                 return "auth/add-user";
 
             } else if (role.equals("APOTEKER")) {
                 user.setRole("APOTEKER");
                 userService.addUserWithRole(user);
-                model.addAttribute("namaUser", user.getUsername());
+                model.addAttribute("nameUser", user.getUsername());
                 return "auth/add-user";
             } else if (role.equals("MANAGER")) {
                 user.setRole("MANAGER");
                 userService.addUserWithRole(user);
-                model.addAttribute("namaUser", user.getUsername());
+                model.addAttribute("nameUser", user.getUsername());
                 return "auth/add-user";
 
             }
@@ -127,7 +127,7 @@ public class UserController {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var authenticationUser = (User) authentication.getPrincipal();
         var authenticationUsername = authenticationUser.getUsername();
-        var userModel = userService.getUserByNama(authenticationUsername);
+        var userModel = userService.getUserByName(authenticationUsername);
 
         if(userModel.getRole().equals("ADMIN")) {
             if(userRole.equals("MANAGER")){
@@ -163,7 +163,7 @@ public class UserController {
 
 
         var authUsername = authUser.getUsername();
-        var userModel = userService.getUserByNama(authUsername);
+        var userModel = userService.getUserByName(authUsername);
 
 
         if(userModel.getRole().equals("ADMIN")){
@@ -172,7 +172,7 @@ public class UserController {
 
 
             } else{
-                var user = userService.getUserByNama(username);
+                var user = userService.getUserByName(username);
                 userService.deleteUser(user);
                 model.addAttribute( "username",user.getUsername());
                 return "auth/delete-user";

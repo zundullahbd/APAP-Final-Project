@@ -5,7 +5,7 @@
     <div class="bg-white">
       <header
         class="absolute inset-x-0 top-0 z-50"
-        th:insert="nav.html :: nav('feature5')"
+        th:insert="nav.html :: nav('mitra')"
       ></header>
       <section class="py-20 mt-16">
         <h2 class="px-20 text-2xl font-semibold mb-4">Mitra List</h2>
@@ -13,7 +13,7 @@
           <thead>
             <tr>
               <th class="font-medium p-4 pl-20 pb-3 text-gray-900 text-left">
-                Nama
+                Name
               </th>
               <th class="font-medium p-4 pb-3 text-gray-900 text-left">
                 Alamat
@@ -71,13 +71,13 @@
                     </svg>
                     <p
                       class="display px-2.5 h-5 w-full"
-                      th:text="${mitra.nama}"
+                      th:text="${mitra.name}"
                     ></p>
                     <input
                       type="text"
                       class="edit hidden h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
-                      th:value="${mitra.nama}"
-                      name="nama"
+                      th:value="${mitra.name}"
+                      name="name"
                       required
                     />
                   </td>
@@ -187,8 +187,8 @@
                   <input
                     type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 shadow-sm"
-                    name="nama"
-                    placeholder="Nama Mitra"
+                    name="name"
+                    placeholder="Name Mitra"
                     required
                   />
                 </td>

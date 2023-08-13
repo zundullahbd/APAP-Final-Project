@@ -15,9 +15,34 @@
                 <h2 class="text-6xl font-bold text-gray-900 my-20">Tambah User Baru</h2>
                 <br>
                 <form th:action="@{/user/add}" th:object="${user}" method="POST">
+<<<<<<< HEAD
                     <div class="mb-3">
                         <label class="text-xl">Username</label>
                         <input type="text" name="username" class="form-control"/>
+=======
+                    <label>Username</label>
+                    <input type="text" name="username" class ="form-control"/>
+
+<<<<<<< HEAD
+                    <label>Name</label>
+=======
+                    <label>Nama</label>
+>>>>>>> ed837cc8f90bc6d4e41aefeb0ef437d76c147d2a
+                    <input type="text" name="name" class ="form-control"/>
+
+                    <label>E-mail</label>
+                    <input type="text" name="email" class ="form-control"/>
+
+                    <label>Password</label>
+                    <input required type="password" name="password" class="form-control" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
+
+                    <label>Role</label>
+
+                    <div>
+                        <input th:if="${userRole == 'DOKTER'}" name = "role" type="text" value="DOKTER" readonly >
+                        <input th:if="${userRole == 'APOTEKER'}" name = "role" type="text" value="APOTEKER" readonly >
+                        <input th:if="${userRole == 'MANAGER'}" name = "role" type="text" value="MANAGER" readonly >
+>>>>>>> cfbc3d80c52163f19771e2bb57439018c2d1e274
                     </div>
 
                     <div class="mb-3">
