@@ -7,15 +7,13 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class AdminModel extends UserModel implements Serializable {
-    @Id
-    private String nama;
 }

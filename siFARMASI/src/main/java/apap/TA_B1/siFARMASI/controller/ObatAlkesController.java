@@ -1,5 +1,6 @@
 package apap.TA_B1.siFARMASI.controller;
 
+
 import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.RiwayatTambahStokModel;
@@ -99,7 +100,7 @@ public class ObatAlkesController {
 
 
     @GetMapping("/input-obat-alkes")
-    public String addObatAlkesFormPage (Model model) {
+    public String addObatAlkesFormPage(Model model) {
         RiwayatTambahStokModel riwayatTambahStok = new RiwayatTambahStokModel();
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         List<MitraModel> listMitra = mitraService.getListMitra();
@@ -112,7 +113,7 @@ public class ObatAlkesController {
     }
 
     @PostMapping("/input-obat-alkes")
-    public String addObatAlkesSubmitPage (@ModelAttribute RiwayatTambahStokModel riwayatTambahStok, Model model) {
+    public String addObatAlkesSubmitPage(@ModelAttribute RiwayatTambahStokModel riwayatTambahStok, Model model) {
         obatAlkesService.increaseStock(riwayatTambahStok.getId_obat(), riwayatTambahStok.getJumlah_obat());
 //        riwayatTambahStok.setId_user(userService.getUserById(1));
         riwayatTambahStok.setCreated_at(LocalDateTime.now());

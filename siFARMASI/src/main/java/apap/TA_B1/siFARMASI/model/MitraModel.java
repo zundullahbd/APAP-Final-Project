@@ -45,6 +45,7 @@ public class MitraModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalKerjasama;
 
+
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ObatAlkesModel> obatAlkesList;
@@ -52,4 +53,10 @@ public class MitraModel implements Serializable {
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RiwayatTambahStokModel> riwayatTambahStokList;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mitra", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private MitraModel mitra;
+
 }
