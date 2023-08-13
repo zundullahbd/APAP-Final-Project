@@ -10,6 +10,7 @@ import apap.TA_B1.siFARMASI.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,6 @@ public class ResepController {
     private ObatAlkesService obatAlkesService;
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private ResepDb resepDb;
 
     @GetMapping("/input-resep")
@@ -51,10 +50,7 @@ public class ResepController {
     public String addResepSubmitPage (@ModelAttribute ResepModel resep, Model model) {
         logger.info("Handle resep add submit page");
         obatAlkesService.reduceStock(resep.getId_obat(), resep.getJumlah_obat());
-//        resep.setId_user(userService.getUserById(1));
-        resep.setNomor("R-01");
-        resep.setCreated_at(LocalDateTime.now());
-        resepDb.save(resep);
+        resepService.addResep(resep);
         return "redirect:/";
     }
 }

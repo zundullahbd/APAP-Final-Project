@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface UserDb extends JpaRepository<UserModel, Integer> {
+@Repository
+public interface UserDb extends JpaRepository<UserModel, Long> {
     UserModel findByUsername(String username);
     List<UserModel> findAllByRole(String role);
+    UserModel findByEmail(String email);
 }

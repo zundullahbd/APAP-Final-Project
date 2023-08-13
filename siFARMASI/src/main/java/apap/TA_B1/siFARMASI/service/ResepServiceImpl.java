@@ -2,11 +2,17 @@ package apap.TA_B1.siFARMASI.service;
 
 import apap.TA_B1.siFARMASI.model.ResepModel;
 import apap.TA_B1.siFARMASI.repository.ResepDb;
+import io.netty.handler.codec.http2.DecoratingHttp2ConnectionDecoder;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 
 @Service
@@ -15,12 +21,21 @@ public class ResepServiceImpl implements ResepService {
     @Autowired
     ResepDb resepDb;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void addResep(ResepModel resep){
         LocalDateTime now = LocalDateTime.now();
+        resep.setId_user(userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName()));
+
+        String prefix = "R-";
+        String suffix = "";
+        Long id = resepDb.count() + 1;
+        suffix = id.toString();
+
+        resep.setNomor(prefix + suffix);
         resep.setCreated_at(now);
         resepDb.save(resep);
     }
-
-
 }

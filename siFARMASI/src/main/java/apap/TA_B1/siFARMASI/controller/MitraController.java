@@ -1,6 +1,7 @@
 package apap.TA_B1.siFARMASI.controller;
 
 import apap.TA_B1.siFARMASI.model.MitraModel;
+import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class MitraController {
         logger.info("Handle view mitra list request");
         List<MitraModel> listMitra = mitraService.getListMitra();
         model.addAttribute("listMitra", listMitra);
+        model.addAttribute("mitraModel", new MitraModel()); // Add an empty MitraModel object for the form
         return "mitra/list-mitra";
     }
 
@@ -57,10 +59,12 @@ public class MitraController {
 
     @PostMapping("/edit/{id}")
     public String editMitraSubmit(@PathVariable Integer id, @ModelAttribute @Valid MitraModel mitra,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
         logger.info("Handling edit mitra form submit");
         if (bindingResult.hasErrors()) {
-            return "mitra/form-update-mitra";
+            List<MitraModel> listMitra = mitraService.getListMitra();
+            model.addAttribute("listMitra", listMitra);
+            return "mitra/list-mitra";
         }
         mitra.setId(id);
         mitraService.updateMitra(mitra);

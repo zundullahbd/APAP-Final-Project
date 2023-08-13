@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,8 +27,8 @@ public class MitraModel implements Serializable {
     private Integer id;
 
     @NotBlank
-    @Column(name = "nama", nullable = false)
-    private String nama;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @NotBlank
     @Column(name = "alamat", nullable = false)
@@ -45,6 +46,7 @@ public class MitraModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalKerjasama;
 
+
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ObatAlkesModel> obatAlkesList;
@@ -52,4 +54,5 @@ public class MitraModel implements Serializable {
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RiwayatTambahStokModel> riwayatTambahStokList;
+
 }

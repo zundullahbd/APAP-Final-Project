@@ -4,13 +4,15 @@ import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.RiwayatTambahStokModel;
 import apap.TA_B1.siFARMASI.repository.RiwayatTambahStokDb;
-import apap.TA_B1.siFARMASI.repository.UserDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
+import apap.TA_B1.siFARMASI.service.RiwayatTambahStokService;
 import apap.TA_B1.siFARMASI.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,7 @@ public class ObatAlkesController {
     private MitraService mitraService;
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private RiwayatTambahStokDb riwayatTambahStokDb;
+    private RiwayatTambahStokService riwayatTambahStokService;
 
     @GetMapping("/input-obat-alkes")
     public String addObatAlkesFormPage (Model model) {
@@ -51,11 +51,9 @@ public class ObatAlkesController {
     }
 
     @PostMapping("/input-obat-alkes")
-    public String addObatAlkesSubmitPage (@ModelAttribute RiwayatTambahStokModel riwayatTambahStok, Model model) {
+    public String addObatAlkesSubmitPage(@ModelAttribute RiwayatTambahStokModel riwayatTambahStok, Model model) {
         obatAlkesService.increaseStock(riwayatTambahStok.getId_obat(), riwayatTambahStok.getJumlah_obat());
-//        riwayatTambahStok.setId_user(userService.getUserById(1));
-        riwayatTambahStok.setCreated_at(LocalDateTime.now());
-        riwayatTambahStokDb.save(riwayatTambahStok);
+        riwayatTambahStokService.addRiwayat(riwayatTambahStok);
         return "redirect:/";
     }
 }
