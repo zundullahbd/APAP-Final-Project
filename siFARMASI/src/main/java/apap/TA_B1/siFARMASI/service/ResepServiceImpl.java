@@ -27,7 +27,7 @@ public class ResepServiceImpl implements ResepService {
     @Override
     public void addResep(ResepModel resep){
         LocalDateTime now = LocalDateTime.now();
-        resep.setId_user(userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName()));
+        resep.setId_user(userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()));
 
         String prefix = "R-";
         String suffix = "";
