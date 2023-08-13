@@ -12,4 +12,5 @@ public interface ObatAlkesService {
     void deleteObatAlkes(Integer id);
     void reduceStock(ObatAlkesModel obatAlkes, Integer jumlah);
     void increaseStock(ObatAlkesModel obatAlkes, Integer jumlah);
+    void deleteObatAlkes(ObatAlkesModel obatAlkes);
 }

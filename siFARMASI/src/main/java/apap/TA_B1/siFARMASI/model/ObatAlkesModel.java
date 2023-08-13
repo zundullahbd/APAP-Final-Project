@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -33,8 +34,8 @@ public class ObatAlkesModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "nama", nullable = false)
+    private String nama;
 
     @NotNull
     @Size(max = 50)
@@ -68,18 +69,17 @@ public class ObatAlkesModel implements Serializable {
     @Column(name = "stok", nullable = false)
     private Integer stok;
 
-    @Column(name = "kadaluwarsa", nullable = true)
-    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm")
-    private LocalDateTime kadaluwarsa;
+    @Column(name = "kadaluwarsa", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate kadaluwarsa;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "lokasi", nullable = false)
     private String lokasi;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "pathFile", nullable = false)
+    @NotEmpty(message = "Path file tidak boleh kosong")
+    @Column(name = "pathFile")
     private String pathFile;
 
     @OneToMany(mappedBy = "id_obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
