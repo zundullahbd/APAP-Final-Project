@@ -20,7 +20,7 @@ public class RiwayatTambahStokServiceImpl implements  RiwayatTambahStokService {
 
     @Override
     public void addRiwayat(RiwayatTambahStokModel riwayatTambahStok){
-        riwayatTambahStok.setId_user(userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName()));
+        riwayatTambahStok.setId_user(userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()));
         riwayatTambahStok.setCreated_at(LocalDateTime.now());
         riwayatTambahStokDb.save(riwayatTambahStok);
     }

@@ -1,5 +1,16 @@
 package apap.TA_B1.siFARMASI.controller;
 
+import apap.TA_B1.siFARMASI.model.AdminModel;
+import apap.TA_B1.siFARMASI.model.UserModel;
+import apap.TA_B1.siFARMASI.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
+import java.util.List;
 import apap.TA_B1.siFARMASI.model.*;
 import apap.TA_B1.siFARMASI.service.UserService;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,12 +25,50 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @CrossOrigin
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+    @GetMapping("")
+    public String viewUserList(Model model) {
+        logger.info("Handling view user list request");
+        List<UserModel> listUser = userService.getListUser();
+        List<UserModel> listAdmin = userService.getListAdmin();
+        List<UserModel> listDokter = userService.getListDokter();
+        List<UserModel> listApoteker = userService.getListApoteker();
+        List<UserModel> listManager = userService.getListManager();
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("listAdmin", listAdmin);
+        model.addAttribute("listDokter", listDokter);
+        model.addAttribute("listApoteker", listApoteker);
+        model.addAttribute("listManager", listManager);
+        return "user/list-user";
+    }
+
+    @GetMapping("/adminAddUser")
+    public String adminAddUserForm(Model model) {
+        logger.info("Handling add user form request");
+        model.addAttribute("userModel", new UserModel());
+        return "user/form-add-user";
+    }
+
+    @PostMapping("/adminAddUser")
+    public String adminAddUserSubmit(@ModelAttribute UserModel user, Model model) {
+        logger.info("Handling add user submit request");
+        try {
+            userService.addUser(user);
+        } catch(Exception e) {
+            logger.error("Username already registered");
+            model.addAttribute("userModel", user);
+            model.addAttribute("error", "Username already registered");
+            return "user/form-add-user";
+        }
+        return "redirect:/user";
+    }
 
     @GetMapping("/listAllUsers")
     public String listAllUser(Model model) {
@@ -131,19 +180,19 @@ public class UserController {
 
         if(userModel.getRole().equals("ADMIN")) {
             if(userRole.equals("MANAGER")){
-                List<ManagerModel> listManager = userService.getListManager();
+                List<UserModel> listManager = userService.getListManager();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listManager);
                 return "auth/viewall-user";
 
             } else if (userRole.equals("DOKTER")){
-                List<DokterModel> listDokter = userService.getListDokter();
+                List<UserModel> listDokter = userService.getListDokter();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listDokter);
                 return "auth/viewall-user";
 
             } else if (userRole.equals("APOTEKER")){
-                List<ApotekerModel> listApoteker = userService.getListApoteker();
+                List<UserModel> listApoteker = userService.getListApoteker();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listApoteker);
                 return "auth/viewall-user";
