@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:insert="head.html :: head" th:with="title='404 Not Found'">
-    <meta charset="UTF-8">
+  <head th:insert="head.html :: head" th:with="title='404 Not Found'">
+    <meta charset="UTF-8" />
     <title>404 Not Found</title>
-</head>
-<body>
-<div class="bg-white">
-    <header
-            class="absolute inset-x-0 top-0 z-50"
-            th:insert="nav2.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
-    ></header>
-    <section
-            class="p-20 pr-0 flex items-start space-x-20 justify-between"
-    >
+  </head>
+  <body>
+    <div class="bg-white">
+      <header
+        class="absolute inset-x-0 top-0 z-50"
+        th:insert="nav.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
+      ></header>
+      <section class="p-20 flex items-start space-x-20 justify-between">
         <div
-                class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
+          class="grow flex items-center justify-center bg-gray-500/10 border rounded-2xl border-gray-500/20 p-6"
         >
-            <div class="container-fluid">
-                <h2 class="font-semibold text-3xl text-gray-900 mb-10">404 Not Found</h2>
-                <p class="mb-6">Halaman tidak ditemukan</p>
-                <a th:href="@{/}" class="text-sky-500 hover:underline">Kembali ke Home</a>
-            </div>
+          <div class="container-fluid">
+            <h2 class="font-semibold text-3xl text-gray-900 mb-10">
+              404 Not Found
+            </h2>
+            <p class="mb-6">Halaman tidak ditemukan</p>
+            <a th:href="@{/}" class="text-sky-500 hover:underline"
+              >Kembali ke Home</a
+            >
+          </div>
         </div>
         <div
-                class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
+          class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
         >
+          <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+          >
             <div
-                    class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
-            >
-                <div
-                        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style="
+              class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style="
                 clip-path: polygon(
                   74.1% 44.1%,
                   100% 61.6%,
@@ -51,15 +53,15 @@
                   74.1% 44.1%
                 );
               "
-                ></div>
-            </div>
+            ></div>
+          </div>
+          <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true"
+          >
             <div
-                    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                    aria-hidden="true"
-            >
-                <div
-                        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                        style="
+              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              style="
                 clip-path: polygon(
                   74.1% 44.1%,
                   100% 61.6%,
@@ -79,10 +81,10 @@
                   74.1% 44.1%
                 );
               "
-                ></div>
-            </div>
+            ></div>
+          </div>
         </div>
-    </section>
-</div>
-</body>
+      </section>
+    </div>
+  </body>
 </html>

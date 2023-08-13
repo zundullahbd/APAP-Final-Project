@@ -1,7 +1,6 @@
 package apap.TA_B1.siFARMASI.controller;
 
 import apap.TA_B1.siFARMASI.model.MitraModel;
-import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
