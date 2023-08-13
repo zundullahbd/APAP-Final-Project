@@ -10,4 +10,5 @@ public interface MitraService {
     MitraModel addMitra(MitraModel mitra);
     MitraModel updateMitra(MitraModel mitra);
     void deleteMitra(Integer id);
+
 }

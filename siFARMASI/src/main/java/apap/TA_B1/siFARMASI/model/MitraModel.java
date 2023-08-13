@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -53,10 +54,5 @@ public class MitraModel implements Serializable {
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RiwayatTambahStokModel> riwayatTambahStokList;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mitra", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private MitraModel mitra;
 
 }
