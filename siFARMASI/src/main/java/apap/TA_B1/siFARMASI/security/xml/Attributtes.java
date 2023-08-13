@@ -23,7 +23,7 @@ public class Attributtes {
     private  String peran_user;
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
-    private  String nama;
+    private  String name;
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
     private  String npm;
