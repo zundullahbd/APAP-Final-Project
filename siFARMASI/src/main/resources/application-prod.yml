@@ -7,10 +7,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
 
-    # sesuaikan nama database anda dengan di bawah ini
+    # sesuaikan name database anda dengan di bawah ini
     url: jdbc:mysql://db:3306/apap_db?useSSL=false&serverTimezone=Asia/Jakarta
 
-    # sesuaikan dengan NAMA dan PASSWORD anda dengan username password di bawah ini
+    # sesuaikan dengan NAME dan PASSWORD anda dengan username password di bawah ini
     username: apap_user
     password: password1234!
 

@@ -139,7 +139,7 @@ public class PageController {
         if (user == null) {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
-            user.setName(attributes.getNama());
+            user.setName(attributes.getName());
             user.setPassword("sifarmasi");
             user.setUsername(username);
             user.setIsSso(true);
