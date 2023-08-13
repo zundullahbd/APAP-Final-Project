@@ -27,7 +27,7 @@ public class MitraModel implements Serializable {
 
     @NotBlank
     @Column(name = "name", nullable = false)
-    private String name;
+    private String nama;
 
     @NotBlank
     @Column(name = "alamat", nullable = false)
