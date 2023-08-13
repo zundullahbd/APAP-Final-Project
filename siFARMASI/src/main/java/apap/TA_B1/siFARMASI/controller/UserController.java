@@ -34,7 +34,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @GetMapping("")
-    public String vieUserList(Model model) {
+    public String viewUserList(Model model) {
         logger.info("Handling view user list request");
         List<UserModel> listUser = userService.getListUser();
         List<UserModel> listAdmin = userService.getListAdmin();

@@ -52,6 +52,7 @@ public class ObatAlkesController {
 
     @PostMapping("/input-obat-alkes")
     public String addObatAlkesSubmitPage(@ModelAttribute RiwayatTambahStokModel riwayatTambahStok, Model model) {
+        logger.info("Handle obat alkes add form request");
         obatAlkesService.increaseStock(riwayatTambahStok.getId_obat(), riwayatTambahStok.getJumlah_obat());
         riwayatTambahStokService.addRiwayat(riwayatTambahStok);
         return "redirect:/";
