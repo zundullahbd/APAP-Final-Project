@@ -40,7 +40,7 @@ public class PageController {
     @Autowired
     ServerProperties serverProperties;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(Principal principal, Model model) {
         UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);

@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService{
             dokter.setUsername(user.getUsername());
             dokter.setPassword(user.getPassword());
             dokter.setEmail(user.getEmail());
+            dokter.setCreated_at_timestamp(Instant.now());
             return dokterDb.save(dokter);
 
         } else if (user.getRole().equals("APOTEKER")) {
@@ -77,6 +78,7 @@ public class UserServiceImpl implements UserService{
             apoteker.setUsername(user.getUsername());
             apoteker.setPassword(user.getPassword());
             apoteker.setEmail(user.getEmail());
+            apoteker.setCreated_at_timestamp(Instant.now());
             return apotekerDb.save(apoteker);
         }
         else if (user.getRole().equals("MANAGER")) {
@@ -86,6 +88,7 @@ public class UserServiceImpl implements UserService{
             manager.setUsername(user.getUsername());
             manager.setPassword(user.getPassword());
             manager.setEmail(user.getEmail());
+            manager.setCreated_at_timestamp(Instant.now());
             return managerDb.save(manager);
         } else {
             return userDb.save(user);

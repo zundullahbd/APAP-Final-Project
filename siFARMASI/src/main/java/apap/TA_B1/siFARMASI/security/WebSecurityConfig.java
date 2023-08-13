@@ -30,8 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+<<<<<<< HEAD
                 .authorizeHttpRequests()
                 .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
+=======
+                .authorizeRequests()
+                .antMatchers("/main", "/signup").permitAll() // Allow public access to home and signup
+>>>>>>> ed837cc8f90bc6d4e41aefeb0ef437d76c147d2a
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
