@@ -40,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                .antMatchers("/obat-alkes/**").hasAnyAuthority("APOTEKER")
                 .antMatchers("/mitra/**").hasAnyAuthority("ADMIN", "APOTEKER")
                 .anyRequest().authenticated()
                 .and()
