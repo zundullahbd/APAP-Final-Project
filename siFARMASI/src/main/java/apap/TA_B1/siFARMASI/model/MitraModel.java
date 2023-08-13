@@ -27,7 +27,7 @@ public class MitraModel implements Serializable {
 
     @NotBlank
     @Column(name = "name", nullable = false)
-    private String name;
+    private String nama;
 
     @NotBlank
     @Column(name = "alamat", nullable = false)
@@ -53,10 +53,5 @@ public class MitraModel implements Serializable {
     @OneToMany(mappedBy = "idMitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RiwayatTambahStokModel> riwayatTambahStokList;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mitra", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private MitraModel mitra;
 
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="head.html :: head" th:with="title='Edit Mitra'"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+  <head th:insert="head.html :: head" th:with="title='Add User'"></head>
   <body>
     <div class="bg-white">
       <header
@@ -8,123 +8,111 @@
         th:insert="nav.html :: nav('feature5')"
       ></header>
       <section class="container max-w-2xl p-20 mt-16">
-        <h2 class="text-2xl font-semibold mb-4 flex gap-3">
-          <a href="/mitra">
-            <button
-              class="border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-8 h-8 flex items-center justify-center shadow-lg"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
-            </button> </a
-          >Edit Mitra
-        </h2>
+        <h2 class="text-2xl font-semibold mb-4">Add User</h2>
         <div
           class="flex items-center justify-center bg-gray-500/10 border rounded-2xl border-gray-500/20 p-6"
         >
           <form
-            th:action="@{/mitra/edit/{id}(id=${mitra.id})}"
-            th:object="${mitra}"
+            th:action="@{/user/add}"
+            th:object="${userModel}"
             method="POST"
             class="z-10 p-12 grow border border-gray-500/20 rounded-lg bg-white shadow-xl"
           >
-            <!-- Mitra Form Fields -->
+            <!-- User Form Fields -->
+            <div class="mb-6">
+              <label
+                for="username"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="username"
+                th:field="*{username}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                placeholder="Username"
+                required
+              />
+            </div>
             <div class="mb-6">
               <label
                 for="name"
                 class="block mb-2 text-sm font-medium text-gray-900"
-                >Name Mitra</label
+                >Name</label
               >
               <input
                 type="text"
                 id="name"
-                th:field="*{nama}"
+                th:field="*{name}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-                placeholder="Name Mitra"
+                placeholder="Name"
                 required
               />
             </div>
             <div class="mb-6">
               <label
-                for="alamat"
+                for="role"
                 class="block mb-2 text-sm font-medium text-gray-900"
-                >Alamat</label
+                >Role</label
               >
-              <input
-                type="text"
-                id="alamat"
-                th:field="*{alamat}"
+              <select
+                id="role"
+                th:field="*{role}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-                placeholder="Alamat"
+                placeholder="Role"
                 required
-              />
+              >
+                <option class="bg-gray-50" value="apoteker">Apoteker</option>
+                <option value="dokter">Dokter</option>
+                <option value="manager">Manager</option>
+              </select>
             </div>
             <div class="mb-6">
               <label
-                for="jenis"
-                class="block mb-2 text-sm font-medium text-gray-900"
-                >Jenis</label
+                  for="password"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+              >Password</label
               >
               <input
-                type="text"
-                id="jenis"
-                th:field="*{jenis}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-                placeholder="Jenis"
-                required
-              />
-            </div>
-            <div class="mb-6">
-              <label
-                for="kontak"
-                class="block mb-2 text-sm font-medium text-gray-900"
-                >Kontak</label
-              >
-              <input
-                type="text"
-                id="kontak"
-                th:field="*{kontak}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-                placeholder="Kontak"
-                required
-              />
-            </div>
-            <div class="mb-6">
-              <label
-                for="tanggalKerjasama"
-                class="block mb-2 text-sm font-medium text-gray-900"
-                >Tanggal Kerjasama</label
-              >
-              <input
-                type="date"
-                id="tanggalKerjasama"
-                th:field="*{tanggalKerjasama}"
-                th:datetime="${#dates.format(tanggalKerjasama, 'yyyy-MM-dd')}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-                required
+                  type="password"
+                  id="password"
+                  th:field="*{password}"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="Password"
+                  required
               />
             </div>
             <button
               type="submit"
               class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
             >
-              Update
+              Submit
             </button>
+            <p class="text-center text-red-500" th:if="${error != ''}" th:text="${error}"></p>
           </form>
-        </div>
-      </section>
 
+        </div>
+        <a href="/user" class="fixed bottom-8 right-8">
+          <button
+            class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+          </button>
+        </a>
+      </section>
       <div
         class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
       >

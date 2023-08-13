@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.14'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.sonarqube' version '3.4.0.2513'
 }
 
 group = 'apap.TA_B1'
@@ -11,6 +12,7 @@ java {
 	sourceCompatibility = '11'
 }
 
+
 repositories {
 	mavenCentral()
 }
@@ -19,6 +21,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'junit:junit:4.13.1'
+	testImplementation 'junit:junit:4.13.1'
+	implementation 'org.slf4j:slf4j-api'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'mysql:mysql-connector-java:5.1.6'
@@ -37,3 +42,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
