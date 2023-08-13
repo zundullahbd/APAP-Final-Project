@@ -12,13 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ManagerModel extends UserModel{
-    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ObatAlkesModel> listObatAlkes;
 
-    @OneToMany(mappedBy = "mitra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MitraModel> listMitra;
 }
