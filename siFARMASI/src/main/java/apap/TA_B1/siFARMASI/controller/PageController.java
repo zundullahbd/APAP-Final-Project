@@ -1,5 +1,6 @@
 package apap.TA_B1.siFARMASI.controller;
 
+import apap.TA_B1.siFARMASI.model.JwtLoginRequest;
 import apap.TA_B1.siFARMASI.model.JwtSignUpRequest;
 import apap.TA_B1.siFARMASI.model.UserModel;
 import apap.TA_B1.siFARMASI.repository.UserDb;
@@ -7,19 +8,20 @@ import apap.TA_B1.siFARMASI.security.xml.Attributtes;
 import apap.TA_B1.siFARMASI.security.xml.ServiceResponse;
 import apap.TA_B1.siFARMASI.service.UserService;
 import apap.TA_B1.siFARMASI.setting.Setting;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -54,10 +56,31 @@ public class PageController {
     }
 
     @PostMapping("/login")
-    public String loginSubmitPage(Model model) {
-        model.addAttribute("port", serverProperties.getPort());
-        return "home";
+    public String loginSubmitPage(@ModelAttribute JwtLoginRequest loginRequest, Model model) {
+        UserModel user = userDb.findByUsername(loginRequest.getUsername());
+        BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
+
+        if (user == null) {
+            String errMsg = "User not registered";
+            model.addAttribute("error", errMsg);
+            return "redirect:/error/403"; // Redirect back to the login page with the error
+        }
+
+        // Check if the provided password matches the stored hashed password using BCryptPasswordEncoder
+        if (pass.matches(loginRequest.getPassword(), user.getPassword())) {
+            model.addAttribute("port", serverProperties.getPort());
+
+            // Redirect to the home page
+            return "home"; // Adjust the view name as needed
+        } else {
+            String errMsg = "Incorrect username or password";
+            model.addAttribute("error", errMsg);
+            return "redirect:/auth/login?error"; // Redirect back to the login page with the error
+        }
     }
+
+
+
     @RequestMapping("/signup")
     public String signupForm(Model model) {
         model.addAttribute("signupRequest", new JwtSignUpRequest());
@@ -140,4 +163,10 @@ public class PageController {
         }
         return new ModelAndView("redirect:" + Setting.SERVER_LOGOUT + Setting.CLIENT_LOGOUT);
     }
+    @GetMapping("/logout")
+    public String logout() {
+        // Clear the authentication and invalidate the session
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return "redirect:/login?logout"; // Redirect to the login page with a logout parameter
+   }
 }

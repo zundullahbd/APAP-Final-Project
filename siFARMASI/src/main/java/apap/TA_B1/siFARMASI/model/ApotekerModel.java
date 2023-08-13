@@ -13,10 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ApotekerModel extends UserModel implements Serializable {
-    @OneToMany(mappedBy = "apoteker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ObatAlkesModel> listObatAlkes;
+
 }

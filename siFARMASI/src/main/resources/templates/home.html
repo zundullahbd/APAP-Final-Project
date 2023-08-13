@@ -4,112 +4,52 @@
   <meta charset="UTF-8">
   <title>Beranda</title>
 </head>
-<body>
-<div class="bg-white">
-  <header
-          class="absolute inset-x-0 top-0 z-50"
-          th:insert="nav2.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
-  ></header>
-  <section
-          class="p-20 pr-0 flex items-start space-x-20 justify-between"
-  >
-    <div
-            class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
-    >
-      <div class="container-fluid">
-        <h2 class="font-semibold text-3xl text-gray-900 mb-10"><span th:text="'Hello '+${#httpServletRequest.remoteUser}+'!'"></span>!</h2>
-        <div class="m-4">
-          <div class="card border border-light">
-            <div class="card-header text-white bg-primary mb3">
-              <h2>WELCOME TO siFARMASI</h2>
-            </div>
-            <div class="card-body">
-              <br>
-              <h5 align ="center">List of features:</h5>
-              <ul sec:authorize="hasAuthority('ADMIN')">
-                <a th:href="@{/user/manajemenUser}" class = "mx-2 btn btn-primary">manage user</a>
-                <a>manage mitra</a>
-              </ul>
-              <ul sec:authorize="hasAuthority('DOKTER')">
-                <li>manage resep</li>
-                <li>manage obat dan alkes</li>
-              </ul>
-              <ul sec:authorize="hasAuthority('APOTEKER')">
-                <li>manage obat dan alkes</li>
-                <li>manage resep</li>
-                <li>manage mitra</li>
-              </ul>
-              <ul sec:authorize="hasAuthority('MANAGER')">
-                <li>manage mitra</li>
-                <li>manage obat dan alkes</li>
-              </ul>
-              <br>
-            </div>
+<body class="bg-white">
+<header class="absolute inset-x-0 top-0 z-50" th:insert="nav2.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"></header>
+<section class="relative p-20 pr-0 h-screen flex justify-center items-center">
+  <div class="bg-white border rounded-3xl shadow-xl overflow-hidden w-[95%] max-w-4xl">
+    <div class="px-8 py-6">
+      <h3 class="text-6xl font-bold text-gray-900 mb-10 text-center">
+        Hello <span th:text="${#httpServletRequest.remoteUser}"></span>!
+      </h3>
+      <div class="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto p-4">
+        <div class="px-8 py-6">
+          <h3 class="text-2xl font-semibold mb-4 text-center">What do you want to do today?</h3>
+          <div class="card-body">
+            <ul sec:authorize="hasAuthority('ADMIN')">
+              <li>
+                <a th:href="@{/user/manajemenUser}" class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block">Manage User</a>
+              </li>
+              <li>
+                <a href="/mitra" class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center block">Manage Mitra</a>
+              </li>
+            </ul>
+            <ul sec:authorize="hasAuthority('DOKTER')">
+              <li>Manage Resep</li>
+              <li>Manage Obat dan Alkes</li>
+            </ul>
+            <ul sec:authorize="hasAuthority('APOTEKER')">
+              <li>Manage Obat dan Alkes</li>
+              <li>Manage Resep</li>
+              <li>Manage Mitra</li>
+            </ul>
+            <ul sec:authorize="hasAuthority('MANAGER')">
+              <li>Manage Mitra</li>
+              <li>Manage Obat dan Alkes</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <div
-            class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
-    >
-      <div
-              class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-              aria-hidden="true"
-      >
-        <div
-                class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                style="
-                clip-path: polygon(
-                  74.1% 44.1%,
-                  100% 61.6%,
-                  97.5% 26.9%,
-                  85.5% 0.1%,
-                  80.7% 2%,
-                  72.5% 32.5%,
-                  60.2% 62.4%,
-                  52.4% 68.1%,
-                  47.5% 58.3%,
-                  45.2% 34.5%,
-                  27.5% 76.7%,
-                  0.1% 64.9%,
-                  17.9% 100%,
-                  27.6% 76.8%,
-                  76.1% 97.7%,
-                  74.1% 44.1%
-                );
-              "
-        ></div>
-      </div>
-      <div
-              class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-              aria-hidden="true"
-      >
-        <div
-                class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                style="
-                clip-path: polygon(
-                  74.1% 44.1%,
-                  100% 61.6%,
-                  97.5% 26.9%,
-                  85.5% 0.1%,
-                  80.7% 2%,
-                  72.5% 32.5%,
-                  60.2% 62.4%,
-                  52.4% 68.1%,
-                  47.5% 58.3%,
-                  45.2% 34.5%,
-                  27.5% 76.7%,
-                  0.1% 64.9%,
-                  17.9% 100%,
-                  27.6% 76.8%,
-                  76.1% 97.7%,
-                  74.1% 44.1%
-                );
-              "
-        ></div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
+<div class="absolute top-0 left-0 w-full h-full isolate pt-14 px-8 pointer-events-none">
+  <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+    <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);"></div>
+  </div>
+  <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+    <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);"></div>
+  </div>
 </div>
 </body>
 </html>

@@ -28,6 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
@@ -35,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                 .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority("DOKTER", "APOTEKER")
+                .antMatchers("/resep/input-resep").hasAnyAuthority("DOKTER", "APOTEKER")
                 .antMatchers("/mitra/**").hasAnyAuthority("ADMIN", "APOTEKER")
                 .anyRequest().authenticated()
                 .and()

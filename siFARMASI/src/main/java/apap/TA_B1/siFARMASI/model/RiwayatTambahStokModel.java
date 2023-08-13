@@ -29,9 +29,10 @@ public class RiwayatTambahStokModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ObatAlkesModel id_obat;
 
-    @NotNull
-    @Column(name = "idMitra", nullable = false)
-    private Integer idMitra;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idMitra", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private MitraModel idMitra;
 
     @NotNull
     @Column(name = "jumlah_obat", nullable = false)

@@ -21,11 +21,66 @@
         <div
           class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
         >
+<<<<<<< HEAD
           <div
             class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-xl bg-white shadow-xl"
           >
             <ul class="flex rounded-lg bg-gray-50 shadow-inner p-2 mb-10">
               <li class="grow">
+=======
+            <div th:if="${param.error}">
+                <span style="color: red;">Invalid username and password</span>
+            </div>
+
+            <form th:action="@{/login}" method="POST"
+                  class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-lg bg-white shadow-xl"
+            >
+                <h2 class="font-semibold text-3xl text-gray-900 mb-10">Sign in</h2>
+                <div class="mb-6">
+                    <label
+                            for="username"
+                            class="block mb-2 text-sm font-medium text-gray-900"
+                    >Username</label
+                    >
+                    <input
+                            type="username"
+                            id="username"
+                            name="username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+
+                    />
+                </div>
+                <div class="mb-6">
+                    <label
+                            for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900"
+                    >Password</label
+                    >
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+
+
+                    />
+                </div>
+                <div class="flex items-start mb-6">
+                    <div class="flex items-center h-5">
+                        <input
+                                id="remember"
+                                type="checkbox"
+                                value=""
+                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                        />
+                    </div>
+                    <label
+                            for="remember"
+                            class="ml-2 text-sm font-medium text-gray-900"
+                    >Remember me</label
+                    >
+                </div>
+>>>>>>> f70fe967ac96bedd672b71494fd40fb70b13e645
                 <button
                   id="signInTab"
                   class="w-full bg-white font-semibold text-3xl text-gray-900 rounded-md p-4"
@@ -93,7 +148,14 @@
                 >
                   Sign in with SSO
                 </button>
+<<<<<<< HEAD
               </a>
+=======
+                <div class="space-y-4 mt-6">
+                    <p class="font-medium text-gray-800 flex items-center justify-center" >Don't have an account?</p>
+                    <a th:href="@{/signup}" class="text-sky-500 hover:bold-items flex items-center justify-center">Create a new account</a>
+                </div>
+>>>>>>> f70fe967ac96bedd672b71494fd40fb70b13e645
             </form>
           </div>
         </div>
