@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public UserModel getUserByNama(String name) {
+    public UserModel getUserByName(String name) {
         UserModel user = userDb.findByUsername(name);
         return user;
     }

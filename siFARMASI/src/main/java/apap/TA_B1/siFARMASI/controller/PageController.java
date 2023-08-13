@@ -42,7 +42,7 @@ public class PageController {
 
     @RequestMapping("/")
     public String home(Principal principal, Model model) {
-        UserModel user = userService.getUserByNama(principal.getName());
+        UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);
         return "home";
 
@@ -102,12 +102,12 @@ public class PageController {
         String username = serviceResponse.getAuthenticationSuccess().getUser();
 
 
-        UserModel user = userService.getUserByNama(username);
+        UserModel user = userService.getUserByName(username);
 
         if (user == null) {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
-            user.setName(attributes.getNama());
+            user.setName(attributes.getName());
             user.setPassword("sifarmasi");
             user.setUsername(username);
             user.setIsSso(true);
@@ -134,7 +134,7 @@ public class PageController {
 
     @GetMapping(value = "/logout-sso")
     public ModelAndView logoutSSO(Principal principal) {
-        UserModel user = userService.getUserByNama(principal.getName());
+        UserModel user = userService.getUserByName(principal.getName());
         if (user.getIsSso()==false) {
             return new ModelAndView("redirect:/logout");
         }

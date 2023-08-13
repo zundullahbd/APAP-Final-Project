@@ -8,7 +8,7 @@ public interface UserService {
 
     UserModel addUser(UserModel user);
 
-    UserModel getUserByNama(String name);
+    UserModel getUserByName(String name);
 
     public String encrypt(String password);
 

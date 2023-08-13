@@ -48,8 +48,8 @@ public class ObatAlkesModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "nama", nullable = false)
-    private String nama;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @NotNull
     @Size(max = 50)

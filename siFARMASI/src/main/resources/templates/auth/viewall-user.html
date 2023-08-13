@@ -29,7 +29,7 @@
         <tr>
             <th>No</th>
             <th>Username User</th>
-            <th>Nama User</th>
+            <th>Name User</th>
             <th>Email User</th>
             <th>Role User</th>
             <th th:if="${userRole == 'DOKTER'}">Tarif</th>
@@ -40,7 +40,7 @@
         <tr th:each="user, iterationStatus : ${listUser}">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${user.username}"></td>
-            <td th:text="${user.nama}"></td>
+            <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.role}"></td>
             <td th:if="${userRole == 'DOKTER'}" th:text="${user.tarif}"></td>
