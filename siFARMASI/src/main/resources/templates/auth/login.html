@@ -1,115 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="head.html :: head" th:with="title='siFARMASI'"> </head>
-<body>
-<div class="bg-white">
-    <header
-            class="absolute inset-x-0 top-0 z-50"
-            th:insert="nav2.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
-    ></header>
-    <section
-            class="p-20 pr-0 flex items-start space-x-20 justify-between"
-    >
+  <head th:insert="head.html :: head" th:with="title='siFARMASI Login'"> </head>
+  <body>
+    <div class="bg-white">
+      <header
+        class="absolute inset-x-0 top-0 z-50"
+        th:insert="nav.html :: nav('')"
+      ></header>
+      <section class="p-20 pr-0 flex items-start space-x-20 justify-between">
         <div class="z-10 space-y-5 my-20">
-            <p
-                    class="px-4 py-1.5 font-semibold text-sm text-sky-600 bg-sky-100/70 rounded-full border border-sky-200 w-fit"
-            >
-                Kelompok B1
-            </p>
-            <h1 class="text-6xl font-bold text-gray-900">
-                Welcome to siFARMASI!
-            </h1>
-            <script
-                    type="module"
-                    src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"
-            ></script>
+          <p
+            class="px-4 py-1.5 font-semibold text-sm text-sky-600 bg-sky-100/70 rounded-full border border-sky-200 w-fit"
+          >
+            Kelompok B1
+          </p>
+          <h1 class="text-6xl font-bold text-gray-900">
+            Welcome to siFARMASI!
+          </h1>
         </div>
         <div
-                class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
+          class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
         >
-            <div th:if="${param.error}">
-                <span style="color: red;">Invalid username and password</span>
-            </div>
-
-            <form th:action="@{/login}" method="POST"
-                  class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-lg bg-white shadow-xl"
-            >
-                <h2 class="font-semibold text-3xl text-gray-900 mb-10">Sign in</h2>
-                <div class="mb-6">
-                    <label
-                            for="username"
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                    >Username</label
-                    >
-                    <input
-                            type="username"
-                            id="username"
-                            name="username"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-
-                    />
-                </div>
-                <div class="mb-6">
-                    <label
-                            for="password"
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                    >Password</label
-                    >
-                    <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
-
-
-                    />
-                </div>
-                <div class="flex items-start mb-6">
-                    <div class="flex items-center h-5">
-                        <input
-                                id="remember"
-                                type="checkbox"
-                                value=""
-                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                        />
-                    </div>
-                    <label
-                            for="remember"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                    >Remember me</label
-                    >
-                </div>
+          <div
+            class="z-10 p-12 grow max-w-lg border border-gray-500/20 rounded-xl bg-white shadow-xl"
+          >
+            <ul class="flex rounded-lg bg-gray-50 shadow-inner p-2 mb-10">
+              <li class="grow">
                 <button
-                        type="submit"
-                        class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+                  id="signInTab"
+                  class="w-full bg-white font-semibold text-3xl text-gray-900 rounded-md p-4"
                 >
-                    Submit
+                  Log in
                 </button>
-                <div class="flex items-center my-6">
-                    <div class="grow h-0.5 bg-gray-200"></div>
-                    <p class="mx-3">or</p>
-                    <div class="grow h-0.5 bg-gray-200"></div>
-                </div>
-                <button type="button" class="flex items-center justify-center text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
-                        onclick="location.href='/login-sso'">
-                    Sign in with SSO
+              </li>
+              <li class="grow">
+                <a th:href="@{/signup}">
+                  <button
+                    id="signUpTab"
+                    class="w-full hover:bg-gray-200 hover:text-bg-700 font-semibold text-3xl text-gray-400 rounded-md p-4"
+                  >
+                    Sign up
+                  </button>
+                </a>
+              </li>
+            </ul>
+            <form id="signInForm" th:action="@{/login}" method="POST">
+              <div class="mb-6">
+                <label
+                  for="username"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Username</label
+                >
+                <input
+                  type="username"
+                  id="username"
+                  name="username"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="admin"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="password"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                  placeholder="• • • • • • • • • •"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+              >
+                Sign In
+              </button>
+              <div th:if="${param.error}">
+                <span class="text-red-600">Invalid username and password</span>
+              </div>
+              <div class="flex items-center my-6">
+                <div class="grow h-0.5 bg-gray-200"></div>
+                <p class="mx-3">or</p>
+                <div class="grow h-0.5 bg-gray-200"></div>
+              </div>
+              <a th:href="@{/login-sso}">
+                <button
+                  type="button"
+                  class="flex items-center justify-center text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+                >
+                  Sign in with SSO
                 </button>
-                <div class="space-y-4 mt-6">
-                    <p class="font-medium text-gray-800 flex items-center justify-center" >Don't have an account?</p>
-                    <a th:href="@{/signup}" class="text-sky-500 hover:bold-items flex items-center justify-center">Create a new account</a>
-                </div>
+              </a>
             </form>
+          </div>
         </div>
         <div
-                class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
+          class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
         >
+          <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+          >
             <div
-                    class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
-            >
-                <div
-                        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style="
+              class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style="
                 clip-path: polygon(
                   74.1% 44.1%,
                   100% 61.6%,
@@ -129,15 +129,15 @@
                   74.1% 44.1%
                 );
               "
-                ></div>
-            </div>
+            ></div>
+          </div>
+          <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true"
+          >
             <div
-                    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                    aria-hidden="true"
-            >
-                <div
-                        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                        style="
+              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              style="
                 clip-path: polygon(
                   74.1% 44.1%,
                   100% 61.6%,
@@ -157,10 +157,10 @@
                   74.1% 44.1%
                 );
               "
-                ></div>
-            </div>
+            ></div>
+          </div>
         </div>
-    </section>
-</div>
-</body>
+      </section>
+    </div>
+  </body>
 </html>

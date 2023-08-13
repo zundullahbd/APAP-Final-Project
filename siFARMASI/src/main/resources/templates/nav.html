@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
   <nav
-    class="fixed flex w-full items-center justify-between py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5 h-16"
+    class="fixed flex w-full items-center py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5 h-16"
     aria-label="Global"
     th:fragment="nav(activeTab)"
   >
-    <div class="flex">
+    <div class="flex grow">
       <a href="/" class="-m-1.5 p-1.5 flex flex-row items-center space-x-3">
         <span class="sr-only">siFARMASI</span>
         <svg
@@ -89,6 +89,18 @@
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
       >
         Stok Obat & Alkes
+      </a>
+    </div>
+
+    <div
+      th:if="${#httpServletRequest.userPrincipal != null}"
+      class="flex grow justify-end"
+    >
+      <a
+        href="/logout"
+        class="py-3 px-5 rounded-xl bg-rose-500 text-white text-sm hover:bg-rose-600"
+      >
+        Logout
       </a>
     </div>
   </nav>
