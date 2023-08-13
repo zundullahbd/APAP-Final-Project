@@ -45,7 +45,7 @@
             <div class="mb-6">
                 <label for="mitra" class="block mb-2 text-sm font-medium text-gray-900">Nama Mitra:</label>
                 <select id="mitra" th:field="${obatAlkes.idMitra.id}" class="input-field">
-                    <option th:each="mitra : ${listMitra}" th:value="${mitra.id}" th:text="${mitra.nama}"></option>
+                    <option th:each="mitra : ${listMitra}" th:value="${mitra.id}" th:text="${mitra.getName()}"></option>
                 </select>
             </div>
 
