@@ -54,9 +54,4 @@ public class MitraModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RiwayatTambahStokModel> riwayatTambahStokList;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mitra", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private MitraModel mitra;
-
 }

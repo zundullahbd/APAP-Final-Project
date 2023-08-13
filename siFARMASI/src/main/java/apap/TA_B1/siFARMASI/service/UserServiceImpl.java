@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 import apap.TA_B1.siFARMASI.model.*;
 import apap.TA_B1.siFARMASI.repository.*;
-
 
 import java.time.Instant;
 import java.util.List;
@@ -36,6 +39,7 @@ public class UserServiceImpl implements UserService{
     public UserModel addUser(UserModel user) {
         String pass = encrypt(user.getPassword());
         user.setPassword(pass);
+        user.setCreated_at_timestamp(Instant.now());
         return userDb.save(user);
     }
 
@@ -127,31 +131,43 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    @Override
-    public List<UserModel> getListUser() {
 
-        return userDb.findAll();
-    }
-
-    @Override
-    public List<DokterModel> getListDokter() {
-
-        return dokterDb.findAll();
-    }
-
-    @Override
-    public List<ApotekerModel> getListApoteker() {
-        return apotekerDb.findAll();
-    }
-
-    @Override
-    public List<ManagerModel> getListManager() {
-        return managerDb.findAll();
-    }
 
     @Override
     public void deleteUserVoid(UserModel user) {
         userDb.delete(user);
     }
+
+    @Override
+    public List<UserModel> getListUser() {
+        return userDb.findAll();
+    }
+
+    @Override
+    public List<UserModel> getListAdmin() {
+        return userDb.findAllByRole("admin");
+    }
+
+    @Override
+    public List<UserModel> getListDokter() {
+        return userDb.findAllByRole("dokter");
+    }
+
+    @Override
+    public List<UserModel> getListApoteker() {
+        return userDb.findAllByRole("apoteker");
+    }
+
+    @Override
+    public List<UserModel> getListManager() {
+        return userDb.findAllByRole("manager");
+    }
+
+
+//    @Override
+//    public UserModel addUser(UserModel user) {
+//        user.setCreated_at_timestamp(Instant.now());
+//        return userDb.save(user);
+//    }
 }
 

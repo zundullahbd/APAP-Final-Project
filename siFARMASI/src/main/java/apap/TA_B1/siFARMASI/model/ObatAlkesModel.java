@@ -32,21 +32,6 @@ public class ObatAlkesModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MitraModel idMitra;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "apoteker", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ObatAlkesModel apoteker;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dokter", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ObatAlkesModel dokter;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "manager", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ObatAlkesModel manager;
-
     @NotNull
     @Size(max = 50)
     @Column(name = "nama", nullable = false)
