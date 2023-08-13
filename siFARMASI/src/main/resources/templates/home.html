@@ -6,11 +6,12 @@
 >
   <head th:insert="head.html :: head" th:with="title='Beranda'">
     <meta charset="UTF-8" />
+    <title>Beranda</title>
   </head>
   <body class="bg-white">
     <header
       class="absolute inset-x-0 top-0 z-50"
-      th:insert="nav.html :: nav('')"
+      th:insert="nav2.html :: nav('ngisi_sesuai_fitur_lu_(feature2)')"
     ></header>
     <section
       class="relative p-20 pr-0 h-screen flex justify-center items-center"
@@ -28,7 +29,7 @@
                 What do you want to do today?
               </h3>
               <div class="card-body">
-                <ul sec:authorize="hasAuthority('ADMIN')">
+                <ul th:if="${user.role == 'ADMIN'}">
                   <li>
                     <a
                       th:href="@{/user/manajemenUser}"

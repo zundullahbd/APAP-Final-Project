@@ -1,5 +1,7 @@
 package apap.TA_B1.siFARMASI.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import apap.TA_B1.siFARMASI.model.JwtLoginRequest;
 import apap.TA_B1.siFARMASI.model.JwtSignUpRequest;
 import apap.TA_B1.siFARMASI.model.UserModel;
@@ -31,6 +33,7 @@ import java.time.Instant;
 @CrossOrigin
 @Controller
 public class PageController {
+    private final Logger logger = LoggerFactory.getLogger(PageController.class);
 
     @Autowired
     private UserService userService;
@@ -43,19 +46,23 @@ public class PageController {
 
     @GetMapping("/")
     public String home(Principal principal, Model model) {
+        logger.info("Handle home request");
         UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);
+        System.out.println(user.getRole());
         return "home";
 
     }
     @RequestMapping ("/login")
     public String loginFormPage(Model model) {
+        logger.info("Handle login form page request");
         model.addAttribute("port", serverProperties.getPort());
         return "auth/login";
     }
 
     @PostMapping("/login")
     public String loginSubmitPage(@ModelAttribute JwtLoginRequest loginRequest, Model model) {
+        logger.info("Handle login submit page");
         UserModel user = userDb.findByUsername(loginRequest.getUsername());
         BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
 
@@ -82,12 +89,14 @@ public class PageController {
 
     @RequestMapping("/signup")
     public String signupForm(Model model) {
+        logger.info("Handle signup form page request");
         model.addAttribute("signupRequest", new JwtSignUpRequest());
         return "/auth/signup"; // Return the name of the Thymeleaf template for signup form
     }
 
     @PostMapping("/signup")
     public String signupSubmit(@ModelAttribute JwtSignUpRequest signupRequest, Model model) {
+        logger.info("Handle  signup submit request");
         UserModel existingUser = userDb.findByUsername(signupRequest.getUsername());
         if (existingUser != null) {
             model.addAttribute("error", "Username already exists.");
@@ -112,6 +121,7 @@ public class PageController {
             HttpServletRequest request
     )
     {
+        logger.info("Handle admin login sso request");
         ServiceResponse serviceResponse = this.webClient.get().uri(
                 String.format(
                         Setting.SERVER_VALIDATE_TICKET,
@@ -129,13 +139,14 @@ public class PageController {
         if (user == null) {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
-            user.setName(attributes.getName());
+            user.setName(attributes.getNama());
             user.setPassword("sifarmasi");
             user.setUsername(username);
             user.setIsSso(true);
             user.setRole("ADMIN");
             user.setCreated_at_timestamp(Instant.now());
             userService.addUser(user);
+
         }
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, "sifarmasi");
 
@@ -151,11 +162,13 @@ public class PageController {
 
     @GetMapping(value = "/login-sso")
     public ModelAndView loginSSO() {
+        logger.info("Handle login sso get request");
         return new ModelAndView("redirect:" + Setting.SERVER_LOGIN + Setting.CLIENT_LOGIN);
     }
 
     @GetMapping(value = "/logout-sso")
     public ModelAndView logoutSSO(Principal principal) {
+        logger.info("Handle logout sso request");
         UserModel user = userService.getUserByName(principal.getName());
         if (user.getIsSso()==false) {
             return new ModelAndView("redirect:/logout");
@@ -165,6 +178,7 @@ public class PageController {
     @GetMapping("/logout")
     public String logout() {
         // Clear the authentication and invalidate the session
+        logger.info("Handle logout request");
         SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/login?logout"; // Redirect to the login page with a logout parameter
    }
