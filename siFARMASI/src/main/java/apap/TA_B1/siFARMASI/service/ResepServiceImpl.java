@@ -29,6 +29,7 @@ public class ResepServiceImpl implements ResepService {
         LocalDateTime now = LocalDateTime.now();
         resep.setId_user(userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()));
 
+        // Generating custom resep number
         String prefix = "R-";
         String suffix = "";
         Long id = resepDb.count() + 1;
