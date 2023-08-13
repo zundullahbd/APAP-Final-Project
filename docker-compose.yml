@@ -5,7 +5,7 @@ services:
       context: .
     restart: always
     ports:
-      - "10020:8080"
+      - "10012:8080"
     volumes:
       - ./file-storage:/file-storage
       - ./log:/log
@@ -18,7 +18,7 @@ services:
       - backend-network
 
   db:
-    image: mariadb:10.4.24
+    image: mariadb:10.4.26
     restart: always
     env_file:
       - app.env

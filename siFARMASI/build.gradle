@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.14'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'org.sonarqube' version '3.2.0'
+	id 'org.sonarqube' version '3.4.0.2513'
 }
 
 group = 'apap.TA_B1'
@@ -11,6 +11,7 @@ version = '0.0.1-SNAPSHOT'
 java {
 	sourceCompatibility = '11'
 }
+
 
 repositories {
 	mavenCentral()
@@ -41,3 +42,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
