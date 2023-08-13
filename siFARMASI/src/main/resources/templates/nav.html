@@ -50,14 +50,7 @@
       >
         Manage Users
       </a>
-      <a
-        href="/user/view/"
-        th:classappend="${activeTab == 'viewUsers' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAuthority('ADMIN')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        View Users
-      </a>
+
       <a
         href="#"
         th:classappend="${activeTab == 'obatAlkes' ? 'text-white bg-sky-400' : ''}"
