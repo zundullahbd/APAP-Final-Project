@@ -53,4 +53,9 @@ public class ObatAlkesServiceImpl implements ObatAlkesService {
         obatAlkes.setStok(obatAlkes.getStok() + jumlah);
         obatAlkesDb.save(obatAlkes);
     }
+
+    public void deleteObatAlkes(ObatAlkesModel obatAlkes){
+        obatAlkesDb.delete(obatAlkes);
+    }
+
 }
