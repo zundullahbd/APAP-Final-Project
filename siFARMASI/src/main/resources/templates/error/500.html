@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:insert="head.html :: head" th:with="title='403 Forbidden'">
+<head th:insert="head.html :: head" th:with="title='404 Not Found'">
     <meta charset="UTF-8">
-    <title>403 Forbidden</title>
+    <title>404 Not Found</title>
 </head>
 <body>
 <div class="bg-white">
@@ -13,13 +13,12 @@
     <section
             class="p-20 pr-0 flex items-start space-x-20 justify-between"
     >
-
         <div
                 class="grow flex items-center justify-center bg-gray-500/10 border-y border-l rounded-l-2xl border-gray-500/20 p-6"
         >
             <div class="container-fluid">
-                <h2 class="font-semibold text-3xl text-gray-900 mb-10">403 Forbidden</h2>
-                <p class="mb-6">Anda tidak mempunyai akses</p>
+                <h2 class="font-semibold text-3xl text-gray-900 mb-10">500 Internal Error</h2>
+                <p class="mb-6">Terjadi Kesalahan pada Server Kami</p>
                 <a th:href="@{/}" class="text-sky-500 hover:underline">Kembali ke Home</a>
             </div>
         </div>

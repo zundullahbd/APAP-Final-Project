@@ -6,40 +6,57 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
+
 <body>
 <div class="container">
     <div class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
-                <h2> Tambah User Baru</h2>
+                <h2 class="text-6xl font-bold text-gray-900 my-20">Tambah User Baru</h2>
                 <br>
                 <form th:action="@{/user/add}" th:object="${user}" method="POST">
-                    <label>Username</label>
-                    <input type="text" name="username" class ="form-control"/>
-
-                    <label>Nama</label>
-                    <input type="text" name="name" class ="form-control"/>
-
-                    <label>E-mail</label>
-                    <input type="text" name="email" class ="form-control"/>
-
-                    <label>Password</label>
-                    <input required type="password" name="password" class="form-control" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
-
-                    <label>Role</label>
-
-                    <div>
-                        <input th:if="${userRole == 'DOKTER'}" name = "role" type="text" value="DOKTER" readonly >
-                        <input th:if="${userRole == 'APOTEKER'}" name = "role" type="text" value="APOTEKER" readonly >
-                        <input th:if="${userRole == 'MANAGER'}" name = "role" type="text" value="MANAGER" readonly >
+                    <div class="mb-3">
+                        <label class="text-xl">Username</label>
+                        <input type="text" name="username" class="form-control"/>
                     </div>
 
-                    <label for="created_at_timestamp">Created At:</label>
-                    <input type="datetime-local" id="created_at_timestamp" name="created_at_timestamp" value="" disabled>
+                    <div class="mb-3">
+                        <label class="text-xl">Nama</label>
+                        <input type="text" name="name" class="form-control"/>
+                    </div>
 
-                    <br>
-                    <button type="submit" class="btn btn-primary" > Submit</button>
-                    <a class="btn btn-link" href="/">Home</a>
+                    <div class="mb-3">
+                        <label class="text-xl">E-mail</label>
+                        <input type="text" name="email" class="form-control"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-xl">Password</label>
+                        <input required type="password" name="password" class="form-control"
+                               pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                               title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-xl">Role</label>
+                        <input th:if="${userRole == 'DOKTER'}" name="role" type="text" value="DOKTER" readonly>
+                        <input th:if="${userRole == 'APOTEKER'}" name="role" type="text" value="APOTEKER" readonly>
+                        <input th:if="${userRole == 'MANAGER'}" name="role" type="text" value="MANAGER" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-xl" for="created_at_timestamp">Created At:</label>
+                        <input type="datetime-local" id="created_at_timestamp" name="created_at_timestamp" value=""
+                               disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit"
+                                class="btn btn-primary py-2 px-4 rounded-lg bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium">
+                            Submit
+                        </button>
+                        <a class="btn btn-link" href="/">Kembali ke Home</a>
+                    </div>
                 </form>
                 <script>
                     const createdInput = document.getElementById('created_at_timestamp');
@@ -52,4 +69,5 @@
     </div>
 </div>
 </body>
+
 </html>
