@@ -30,6 +30,7 @@ public class UserController {
     String viewAllUser = "auth/viewall-user";
     String accessDenied = "auth/access-denied";
             
+    // waktu buka list user masuk ke sini
     @GetMapping("")
     public String viewUserList(Model model) {
         logger.info("Handling view user list request");
@@ -45,7 +46,7 @@ public class UserController {
         model.addAttribute("listManager", listManager);
         return "user/list-user";
     }
-
+    // waktu buka form tambah user masuknya kesini
     @GetMapping("/adminAddUser")
     public String adminAddUserForm(Model model) {
         logger.info("Handling add user form request");
@@ -53,6 +54,7 @@ public class UserController {
         return "user/form-add-user";
     }
 
+    // waktu sumbit tambah user masuk kesini
     @PostMapping("/adminAddUser")
     public String adminAddUserSubmit(@ModelAttribute UserModel user, Model model) {
         logger.info("Handling add user submit request");
