@@ -27,21 +27,33 @@
                 </svg>
             </button>
         </a><h2 class="text-2xl font-semibold mb-4">Laporan Kadaluwarsa Obat / Alkes</h2>
+        <div class="flex space-x-4 mb-4">
+            <button id="tableTab" class="tab-button active">Table</button>
+            <button id="chartTab" class="tab-button">Chart</button>
+        </div>
         <p class="mb-4">Tahun Range: <span th:text="${tahunAwal}"></span> - <span th:text="${tahunAkhir}"></span></p>
-        <table class="w-full border border-gray-300">
-            <thead>
-            <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">Tahun</th>
-                <th class="border border-gray-300 px-4 py-2">Jumlah Obat Kadaluwarsa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="laporan : ${laporanKadaluwarsa}">
-                <td class="border border-gray-300 px-4 py-2" th:text="${laporan.tahun}"></td>
-                <td class="border border-gray-300 px-4 py-2" th:text="${laporan.jumlahKadaluwarsa}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="tableContent">
+            <table class="w-full border border-gray-300">
+                <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Tahun</th>
+                    <th class="border border-gray-300 px-4 py-2">Jumlah Obat Kadaluwarsa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="laporan : ${laporanKadaluwarsa}">
+                    <td class="border border-gray-300 px-4 py-2 text-center" th:text="${laporan.tahun}"></td>
+                    <td class="border border-gray-300 px-4 py-2 text-center" th:text="${laporan.jumlahKadaluwarsa}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="chartContent" style="display: none;">
+            <h2 class="text-2xl font-semibold mb-4">Bar Chart</h2>
+            <div class="chart-container" style="position: relative; height:40vh; width:80vw;">
+                <canvas id="barChartCanvas"></canvas>
+            </div>
+        </div>
     </section>
     <div class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none">
          <div
@@ -103,5 +115,119 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.js"></script>
+<script th:inline="javascript">
+    const laporanData = [];
+    const tahunAwal = "";
+    const tahunAkhir = "";
+    // Buat array tahun-tahun dalam rentang
+    const tahunRange = Array.from({ length: tahunAkhir - tahunAwal + 1 }, (_, i) => tahunAwal + i);
+
+    // Buat objek untuk menyimpan jumlah kadaluwarsa berdasarkan tahun
+    const jumlahKadaluwarsaByYear = {};
+    laporanData.forEach(item => {
+        jumlahKadaluwarsaByYear[item.tahun] = item.jumlahKadaluwarsa;
+    });
+
+    // Buat array data untuk chart
+    const chartData = tahunRange.map(tahun => jumlahKadaluwarsaByYear[tahun] || 0);
+    const chartLabels = tahunRange;
+    // Set nilai tahunAwal dan tahunAkhir di elemen HTML
+    document.getElementById("tahunAwal").textContent = tahunAwal;
+    document.getElementById("tahunAkhir").textContent = tahunAkhir;
+</script>
+<script>
+    const tableTab = document.getElementById("tableTab");
+    const chartTab = document.getElementById("chartTab");
+    const tableContent = document.getElementById("tableContent");
+    const chartContent = document.getElementById("chartContent");
+
+    // Initialize the active tab
+    tableTab.classList.add("active");
+    tableContent.style.display = "block";
+
+    // Function to switch tabs
+    function switchTab(selectedTab, selectedContent) {
+        // Remove active class from all tabs
+        tableTab.classList.remove("active");
+        chartTab.classList.remove("active");
+
+        // Hide all tab contents
+        tableContent.style.display = "none";
+        chartContent.style.display = "none";
+
+        // Add active class to the selected tab and show corresponding content
+        selectedTab.classList.add("active");
+        selectedContent.style.display = "block";
+    }
+
+    // Handle tab switching
+    tableTab.addEventListener("click", () => {
+        switchTab(tableTab, tableContent);
+    });
+
+    chartTab.addEventListener("click", () => {
+        switchTab(chartTab, chartContent);
+        const ctx = document.getElementById("barChart").getContext("2d");
+        ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+        barChart.render();
+    });
+
+    // Loop through the table rows to extract data
+    const tableRows = document.querySelectorAll("#tableContent tbody tr");
+    tableRows.forEach(row => {
+        const tahun = row.querySelector("td:nth-child(1)").textContent;
+        const jumlahKadaluwarsa = parseInt(row.querySelector("td:nth-child(2)").textContent);
+        chartLabels.push(tahun);
+        chartData.push(jumlahKadaluwarsa);
+    });
+
+    chartLabels.splice(0, 1);
+    chartData.splice(0, 1);
+
+    // Initialize and render the pie chart
+    // const ctx = document.getElementById("barChartCanvas").getContext("2d");
+    // const pieChart = new Chart(ctx, {
+    //     type: "pie",
+    //     data: {
+    //         labels: chartLabels,
+    //         datasets: [{
+    //             label: "Jumlah Kadaluwarsa",
+    //             data: chartData,
+    //             backgroundColor: "rgba(75, 192, 192, 0.2)",
+    //             borderColor: "rgba(75, 192, 192, 1)",
+    //             borderWidth: 1
+    //         }],
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         maintainAspectRatio: false
+    //     }
+    // });
+
+
+    // Initialize and render the bar chart
+    const ctx = document.getElementById("barChartCanvas").getContext("2d");
+    const barChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: "Jumlah Kadaluwarsa",
+                data: chartData,
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+</script>
 </body>
 </html>
