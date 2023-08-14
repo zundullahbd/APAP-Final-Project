@@ -19,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     String admin = "ADMIN";
     String apoteker = "APOTEKER";
     String dokter = "DOKTER";
+    String manajemen = "MANAJEMEN";
 
 
     @Autowired
@@ -45,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/obat-alkes/**").hasAnyAuthority(apoteker)
                 .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
                 .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/laporan/**").hasAnyAuthority(admin, manajemen)
                 .antMatchers("/mitra/**").hasAnyAuthority(admin, apoteker)
                 .anyRequest().authenticated()
                 .and()
