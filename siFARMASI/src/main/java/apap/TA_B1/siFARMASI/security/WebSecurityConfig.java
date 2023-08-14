@@ -33,14 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
+                .antMatchers("/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
-                .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
-                .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                .antMatchers("/user/manajemenUser").hasAnyAuthority("ADMIN")
+                .antMatchers("/user/view/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/obat-alkes/**").hasAnyAuthority("APOTEKER")
-                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority("DOKTER", "APOTEKER")
-                .antMatchers("/resep/input-resep").hasAnyAuthority("DOKTER", "APOTEKER")
                 .antMatchers("/mitra/**").hasAnyAuthority("ADMIN", "APOTEKER")
+                .antMatchers("/resep/**").hasAnyAuthority("DOKTER", "APOTEKER")
+                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority("DOKTER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(login -> login

@@ -29,7 +29,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.Instant;
 
-
 @CrossOrigin
 @Controller
 public class PageController {
@@ -49,11 +48,12 @@ public class PageController {
         logger.info("Handle home request");
         UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);
-        System.out.println(user.getRole());
+        logger.info(user.getRole());
         return "home";
 
     }
-    @RequestMapping ("/login")
+
+    @RequestMapping("/login")
     public String loginFormPage(Model model) {
         logger.info("Handle login form page request");
         model.addAttribute("port", serverProperties.getPort());
@@ -72,7 +72,8 @@ public class PageController {
             return "redirect:/error/403"; // Redirect back to the login page with the error
         }
 
-        // Check if the provided password matches the stored hashed password using BCryptPasswordEncoder
+        // Check if the provided password matches the stored hashed password using
+        // BCryptPasswordEncoder
         if (pass.matches(loginRequest.getPassword(), user.getPassword())) {
             model.addAttribute("port", serverProperties.getPort());
 
@@ -84,8 +85,6 @@ public class PageController {
             return "redirect:/auth/login?error"; // Redirect back to the login page with the error
         }
     }
-
-
 
     @RequestMapping("/signup")
     public String signupForm(Model model) {
@@ -106,10 +105,11 @@ public class PageController {
         existingUser = userDb.findByEmail(signupRequest.getEmail());
         if (existingUser != null) {
             model.addAttribute("error", "Email already exists.");
-            return "auth/signup"; // Return to the signup form with an error message
+            return "auth/signup"; // Return tssoo the signup form with an error message
         }
 
-        userService.signup(signupRequest.getUsername(), signupRequest.getName(), signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getRole());
+        userService.signup(signupRequest.getUsername(), signupRequest.getName(), signupRequest.getEmail(),
+                signupRequest.getPassword(), signupRequest.getRole());
         return "redirect:/login"; // Redirect to the login page after successful signup
     }
 
@@ -118,28 +118,24 @@ public class PageController {
     @GetMapping("/validate-ticket")
     public ModelAndView adminLoginSSO(
             @RequestParam(value = "ticket", required = false) String ticket,
-            HttpServletRequest request
-    )
-    {
+            HttpServletRequest request) {
         logger.info("Handle admin login sso request");
         ServiceResponse serviceResponse = this.webClient.get().uri(
                 String.format(
                         Setting.SERVER_VALIDATE_TICKET,
                         ticket,
-                        Setting.CLIENT_LOGIN
-                )
-        ).retrieve().bodyToMono(ServiceResponse.class).block();
+                        Setting.CLIENT_LOGIN))
+                .retrieve().bodyToMono(ServiceResponse.class).block();
 
         Attributtes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
         String username = serviceResponse.getAuthenticationSuccess().getUser();
-
 
         UserModel user = userService.getUserByName(username);
 
         if (user == null) {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
-            user.setName(attributes.getName());
+            user.setName(attributes.getNama());
             user.setPassword("sifarmasi");
             user.setUsername(username);
             user.setIsSso(true);
@@ -156,7 +152,6 @@ public class PageController {
         HttpSession httpSession = request.getSession(true);
         httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
-
         return new ModelAndView("redirect:/");
     }
 
@@ -170,16 +165,17 @@ public class PageController {
     public ModelAndView logoutSSO(Principal principal) {
         logger.info("Handle logout sso request");
         UserModel user = userService.getUserByName(principal.getName());
-        if (user.getIsSso()==false) {
+        if (user.getIsSso() == false) {
             return new ModelAndView("redirect:/logout");
         }
         return new ModelAndView("redirect:" + Setting.SERVER_LOGOUT + Setting.CLIENT_LOGOUT);
     }
+
     @GetMapping("/logout")
     public String logout() {
         // Clear the authentication and invalidate the session
         logger.info("Handle logout request");
         SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/login?logout"; // Redirect to the login page with a logout parameter
-   }
+    }
 }
