@@ -41,8 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
-                .antMatchers("/user").permitAll()
-                .antMatchers("/user/adminAddUser").permitAll()
+                .antMatchers("/user").hasAuthority(admin)
                 .antMatchers("/user/manajemenUser").hasAuthority(admin)
                 .antMatchers("/user/view/**").hasAuthority(admin)
                 .antMatchers("/obat-alkes/**").hasAnyAuthority(apoteker)

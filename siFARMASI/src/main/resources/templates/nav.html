@@ -50,14 +50,6 @@
     </div>
     <div class="flex p-1 rounded-xl bg-gray-900/5" th:if="${#authentication}">
       <a
-        th:href="@{/user}"
-        th:classappend="${activeTab == 'listUsers' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAuthority('ADMIN')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Users
-      </a>
-      <a
         th:href="@{/user/manajemenUser}"
         th:classappend="${activeTab == 'manageUsers' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('ADMIN')"

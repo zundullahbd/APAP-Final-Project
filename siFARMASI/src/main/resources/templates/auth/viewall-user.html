@@ -1,57 +1,217 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-  <head th:insert="head.html :: head" th:with="title='List Users'"> </head>
-
-  <body>
-    <nav th:replace="nav.html :: nav('listUsers')"></nav>
-    <div class="container">
-      <br />
-      <div th:switch="${userRole}">
-        <h2 th:case="'DOKTER'">Daftar Seluruh DOKTER</h2>
-        <h2 th:case="'APOTEKER'">Daftar Seluruh APOTEKER</h2>
-        <h2 th:case="'MANAGER'">Daftar Seluruh MANAGER</h2>
-      </div>
-      <br />
+<head th:insert="head.html :: head" th:with="title='List Users'"></head>
+<body>
+<header
+        class="absolute inset-x-0 top-0 z-50"
+        th:insert="nav.html :: nav('feature5')"
+></header>
+<div class="bg-white">
+  <div
+          class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none"
+  >
+    <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+    >
       <div
-        th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'MANAGER'}"
-      >
-        <a class="btn btn-primary" th:href="@{/user/add/} + ${userRole}">
-          Tambah User</a
-        >
-      </div>
-
-      <br />
-
-      <br />
-      <table class="table">
+              class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+      ></div>
+    </div>
+    <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true"
+    >
+      <div
+              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+      ></div>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="container py-20 mt-16">
+    <h2 class="text-2xl font-semibold mb-4 text-center">
+      <span th:switch="${userRole}" class="block">
+        <span th:case="'DOKTER'">Daftar Seluruh DOKTER</span>
+        <span th:case="'APOTEKER'">Daftar Seluruh APOTEKER</span>
+        <span th:case="'MANAGER'">Daftar Seluruh MANAGER</span>
+        <span th:case="'ADMIN'">Daftar Seluruh ADMIN</span>
+      </span>
+    </h2>
+    <div
+            class="bg-gray-500/10 border rounded-2xl border-gray-500/20 shadow-lg p-8"
+            th:if="${not #lists.isEmpty(listUser)}"
+    >
+      <table class="border-collapse table-fixed w-full text-sm">
         <thead>
-          <tr>
-            <th>No</th>
-            <th>Username User</th>
-            <th>Name User</th>
-            <th>Email User</th>
-            <th>Role User</th>
-            <th>Aksi</th>
-          </tr>
+        <tr>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pl-4 pt-0 pb-2 text-gray-600 text-left"
+          >
+            Username User
+          </th>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pt-0 pb-2 text-gray-600 text-left"
+          >
+            Name User
+          </th>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pt-0 pb-2 text-gray-600 text-left"
+          >
+            Email User
+          </th>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pr-4 pt-0 pb-2 text-gray-600 text-left"
+          >
+            Role User
+          </th>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pr-4 pt-0 pb-2 text-gray-600 text-left"
+          >
+            Waktu Pembuatan Akun
+          </th>
+          <th
+                  class="border-b border-gray-300 font-medium p-2 pr-4 pt-0 pb-2 text-gray-600 text-center"
+          >
+            Aksi
+          </th>
+        </tr>
         </thead>
         <tbody>
-          <tr th:each="user, iterationStatus : ${listUser}">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
-            <td>
-              <a
-                class="btn btn-danger"
-                th:href="@{/user/delete/} + ${user.username}"
-                >hapus</a
-              >
-            </td>
-          </tr>
+        <tr th:each="user, iterationStatus : ${listUser}">
+          <td
+                  class="border-b border-gray-300 p-2 pl-4 text-gray-800"
+                  th:text="${user.username}"
+          ></td>
+          <td
+                  class="border-b border-gray-300 p-2 text-gray-800"
+                  th:text="${user.name}"
+          ></td>
+          <td
+                  class="border-b border-gray-300 p-2 text-gray-800"
+                  th:text="${user.email}"
+          ></td>
+          <td
+                  class="border-b border-gray-300 p-2 text-gray-800 capitalize"
+                  th:text="${user.role}"
+          ></td>
+          <td
+                  class="border-b border-gray-300 p-2 pr-4 text-gray-800"
+                  th:text="${user.created_at_timestamp}"
+          ></td>
+          <td class="border-b border-gray-300 p-2 pr-4 text-center">
+            <a
+                    class="text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-md"
+                    th:href="@{/user/delete/} + ${user.username}"
+            >
+              Hapus
+            </a>
+          </td>
+        </tr>
         </tbody>
       </table>
-      <a class="btn btn-primary" th:href="@{/user/manajemenUser}">Kembali</a>
     </div>
-  </body>
+    <div
+            th:if="${#lists.isEmpty(listUser)}"
+            class="text-center mt-8 bg-gray-500/10 rounded-lg p-8"
+    >
+      <img
+              src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-7860352-6318310.png?f=webp"
+              alt="Empty State"
+              class="mx-auto w-40 h-40"
+      />
+      <p class="text-gray-500 mt-4">Tidak Ada Pengguna</p>
+    </div>
+    <div
+            class="fixed bottom-8 right-8"
+            th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'MANAGER' OR userRole == 'ADMIN'}"
+    >
+      <a class="block" th:href="@{/user/add/} + ${userRole}">
+        <button
+                class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+        >
+          <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+          >
+            <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+        </button>
+      </a>
+    </div>
+    <a
+            class="fixed bottom-8 right-8"
+            th:href="@{/user/manajemenUser}"
+            th:unless="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'MANAGER' OR userRole == 'ADMIN'}"
+    >
+      <button
+              class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-12 h-12 flex items-center justify-center shadow-lg"
+      >
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+        >
+          <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+    </a>
+  </div>
+</div>
+</body>
 </html>

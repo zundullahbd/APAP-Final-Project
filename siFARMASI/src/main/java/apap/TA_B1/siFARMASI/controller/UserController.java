@@ -29,45 +29,6 @@ public class UserController {
     String addUser = "auth/add-user";
     String viewAllUser = "auth/viewall-user";
     String accessDenied = "auth/access-denied";
-            
-    // waktu buka list user masuk ke sini
-    @GetMapping("")
-    public String viewUserList(Model model) {
-        logger.info("Handling view user list request");
-        List<UserModel> listUser = userService.getListUser();
-        List<UserModel> listAdmin = userService.getListAdmin();
-        List<UserModel> listDokter = userService.getListDokter();
-        List<UserModel> listApoteker = userService.getListApoteker();
-        List<UserModel> listManager = userService.getListManager();
-        model.addAttribute("listUser", listUser);
-        model.addAttribute("listAdmin", listAdmin);
-        model.addAttribute("listDokter", listDokter);
-        model.addAttribute("listApoteker", listApoteker);
-        model.addAttribute("listManager", listManager);
-        return "user/list-user";
-    }
-    // waktu buka form tambah user masuknya kesini
-    @GetMapping("/adminAddUser")
-    public String adminAddUserForm(Model model) {
-        logger.info("Handling add user form request");
-        model.addAttribute("userModel", new UserModel());
-        return "user/form-add-user";
-    }
-
-    // waktu sumbit tambah user masuk kesini
-    @PostMapping("/adminAddUser")
-    public String adminAddUserSubmit(@ModelAttribute UserModel user, Model model) {
-        logger.info("Handling add user submit request");
-        try {
-            userService.addUser(user);
-        } catch(Exception e) {
-            logger.error("Username already registered");
-            model.addAttribute("userModel", user);
-            model.addAttribute("error", "Username already registered");
-            return "user/form-add-user";
-        }
-        return "redirect:/user";
-    }
 
     @GetMapping("/listAllUsers")
     public String listAllUser(Model model) {
@@ -93,7 +54,6 @@ public class UserController {
         var userModel = userService.getUserByName(authenticationUsername);
         if(userModel.getRole().equals(admin)){
             List<String> role = new ArrayList<>();
-            role.add(admin);
             role.add(apoteker);
             role.add(dokter);
             role.add(manager);
@@ -118,7 +78,6 @@ public class UserController {
 
             if(userRole.equals(dokter) || userRole.equals(apoteker) || userRole.equals(manager)){
                 List<String> listRole = new ArrayList<>();
-                listRole.add(admin);
                 listRole.add(apoteker);
                 listRole.add(dokter);
                 listRole.add(manager);
@@ -159,7 +118,6 @@ public class UserController {
                 userService.addUserWithRole(user);
                 model.addAttribute(nameUser, user.getUsername());
                 return addUser;
-
             }
             else{
                 return accessDenied;
@@ -190,12 +148,11 @@ public class UserController {
                 model.addAttribute("listUser", listDokter);
                 return viewAllUser;
 
-            } else if (userRole.equals(apoteker)){
+            } else if (userRole.equals(apoteker)) {
                 List<UserModel> listApoteker = userService.getListApoteker();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listApoteker);
                 return viewAllUser;
-
             } else{
                 return accessDenied;
             }
@@ -203,6 +160,7 @@ public class UserController {
             return accessDenied;
         }
     }
+
 
     @GetMapping("/delete/{username}")
     public String deleteUser (@PathVariable String username, Model model) {
