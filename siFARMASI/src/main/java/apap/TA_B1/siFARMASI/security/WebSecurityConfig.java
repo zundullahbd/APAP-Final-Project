@@ -39,15 +39,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
+                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
+                .antMatchers("/login-sso", "/validate-ticket").permitAll()
+                .antMatchers("/user").permitAll()
+                .antMatchers("/user/adminAddUser").permitAll()
+                .antMatchers("/user/manajemenUser").hasAuthority(admin)
+                .antMatchers("/user/view/**").hasAuthority(admin)
                 .antMatchers("/", "/signup", "/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/**").hasAuthority(admin)
                 .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
-                .antMatchers("/obat-alkes/**").hasAuthority(apoteker)
-                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/obat-alkes/**").hasAnyAuthority(apoteker)
                 .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
                 .antMatchers("/laporan/**").hasAnyAuthority(admin, manajemen)
                 .antMatchers("/mitra/**").hasAnyAuthority(admin, apoteker)
-                .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(login -> login
