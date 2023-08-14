@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <head th:insert="head.html :: head">
     <title>Pilih Jenis Laporan</title>
 </head>
@@ -23,11 +24,11 @@
             </div>
             <div class="mb-4">
                 <label class="block font-semibold mb-2" for="tahunAwal">Tahun Awal</label>
-                <input type="text" name="tahunAwal" id="tahunAwal" class="w-full border rounded-lg p-2">
+                <input type="text" name="tahunAwal" id="tahunAwal" class="w-full border rounded-lg p-2" required>
             </div>
             <div class="mb-4">
                 <label class="block font-semibold mb-2" for="tahunAkhir">Tahun Akhir</label>
-                <input type="text" name="tahunAkhir" id="tahunAkhir" class="w-full border rounded-lg p-2">
+                <input type="text" name="tahunAkhir" id="tahunAkhir" class="w-full border rounded-lg p-2" required>
             </div>
             <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg" id="generateButton">Generate Laporan</button>
         </form>
@@ -97,9 +98,28 @@
             var tahunAwal = $("#tahunAwal").val();
             var tahunAkhir = $("#tahunAkhir").val();
 
+            // Validasi tahunAwal dan tahunAkhir
+            if (!tahunAwal || !tahunAkhir) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal',
+                    text: 'Tahun Awal dan Tahun Akhir harus diisi.',
+                });
+                return; // Hentikan proses jika validasi tidak lolos
+            }
+
+            // Validasi tahun akhir lebih besar atau sama dengan tahun awal
+            if (parseInt(tahunAkhir) < parseInt(tahunAwal)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal',
+                    text: 'Tahun Akhir harus lebih besar atau sama dengan Tahun Awal.',
+                });
+                return; // Hentikan proses jika validasi tidak lolos
+            }
+
             // Membangun URL dengan format yang diinginkan
-            var url = "/laporan/" + jenisLaporan + "/" + tahunAwal + "-" + tahunAkhir;
-            window.location.href = url;
+            window.location.href = "/laporan/" + jenisLaporan + "/" + tahunAwal + "-" + tahunAkhir;
         });
         // Inisialisasi year picker untuk input dengan id tahunAwal
         $("#tahunAwal").datepicker({
