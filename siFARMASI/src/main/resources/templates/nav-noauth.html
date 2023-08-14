@@ -48,59 +48,5 @@
         <p class="font-bold text-sky-600 text-xl">siFARMASI</p>
       </a>
     </div>
-    <div class="flex p-1 rounded-xl bg-gray-900/5" th:if="${#authentication}">
-      <a
-        th:href="@{/user/manajemenUser}"
-        th:classappend="${activeTab == 'manageUsers' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAuthority('ADMIN')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Manage Users
-      </a>
-      <a
-        th:href="@{/obat-alkes/}"
-        th:classappend="${activeTab == 'obatAlkes' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAuthority('APOTEKER')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Obat & Alkes
-      </a>
-      <a
-        th:href="@{/mitra}"
-        th:classappend="${activeTab == 'mitra' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAnyAuthority('ADMIN', 'APOTEKER')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Mitra
-      </a>
-      <a
-        th:href="@{/resep/input-resep}"
-        th:classappend="${activeTab == 'resep' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAnyAuthority('DOKTER', 'APOTEKER')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Resep
-      </a>
-      <a
-        th:href="@{/obat-alkes/input-obat-alkes}"
-        th:classappend="${activeTab == 'stok' ? 'text-white bg-sky-400' : ''}"
-        sec:authorize="hasAnyAuthority('DOKTER', 'APOTEKER')"
-        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
-      >
-        Stok Obat & Alkes
-      </a>
-    </div>
-
-    <div
-      th:if="${#httpServletRequest.userPrincipal != null}"
-      class="flex grow justify-end"
-    >
-      <a
-        th:href="@{/logout}"
-        class="py-3 px-5 rounded-xl bg-rose-500 text-white text-sm hover:bg-rose-600"
-      >
-        Logout
-      </a>
-    </div>
   </nav>
 </html>

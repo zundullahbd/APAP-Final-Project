@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sifarmasiapap-b.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sifarmasiapap-b.main.iml" />
+=======
+>>>>>>> f523d6d9768c63ac3e0d1728245a0cdb033080b1
       <module fileurl="file://$PROJECT_DIR$/.idea/sifarmasiapap-b1.iml" filepath="$PROJECT_DIR$/.idea/sifarmasiapap-b1.iml" />
     </modules>
   </component>

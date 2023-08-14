@@ -46,11 +46,15 @@ public class PageController {
     @GetMapping("/")
     public String home(Principal principal, Model model) {
         logger.info("Handle home request");
+        logger.info("Principal: " + principal);
+        if (principal == null) {
+            logger.info("User is not authenticated. Redirecting to login");
+            return "redirect:/login";
+        }
         UserModel user = userService.getUserByName(principal.getName());
         model.addAttribute("user", user);
         logger.info(user.getRole());
         return "home";
-
     }
 
     @RequestMapping("/login")
