@@ -27,7 +27,7 @@ public class ObatAlkesController {
 
     @Autowired
     private MitraService mitraService;
-
+    @Autowired
     private RiwayatTambahStokService riwayatTambahStokService;
 
     @GetMapping("/")
@@ -96,6 +96,6 @@ public class ObatAlkesController {
         logger.info("Handle obat alkes add form request");
         obatAlkesService.increaseStock(riwayatTambahStok.getId_obat(), riwayatTambahStok.getJumlah_obat());
         riwayatTambahStokService.addRiwayat(riwayatTambahStok);
-        return "redirect:/";
+        return "redirect:/obat-alkes/";
     }
 }
