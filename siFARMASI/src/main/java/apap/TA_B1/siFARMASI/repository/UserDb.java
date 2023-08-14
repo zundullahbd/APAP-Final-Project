@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface UserDb extends JpaRepository<UserModel, Long> {
     UserModel findByUsername(String username);
-    List<UserModel> findAllByRole(String role);
+    List<UserModel> findAllByRole(String role); // ngambil user dari role tertentu (apoteker, manager, dokter)
     UserModel findByEmail(String email);
 }
