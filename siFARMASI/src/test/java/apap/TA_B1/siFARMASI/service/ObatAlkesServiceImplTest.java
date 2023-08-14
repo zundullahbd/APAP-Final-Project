@@ -52,6 +52,23 @@ public class ObatAlkesServiceImplTest {
 
         assertEquals(mockObatAlkes, result);
     }
+    @Test
+    public void testAddObatAlkes() {
+        ObatAlkesModel mockObatAlkes = new ObatAlkesModel();
+        when(obatAlkesDb.save(mockObatAlkes)).thenReturn(mockObatAlkes);
+
+        ObatAlkesModel result = obatAlkesService.addObatAlkes(mockObatAlkes);
+
+        assertEquals(mockObatAlkes, result);
+    }
+
+    @Test
+    public void testDeleteObatAlkes() {
+        int obatAlkesId = 1;
+        obatAlkesService.deleteObatAlkes(obatAlkesId);
+
+        verify(obatAlkesDb, times(1)).deleteById(obatAlkesId);
+    }
 
 
     @Test
