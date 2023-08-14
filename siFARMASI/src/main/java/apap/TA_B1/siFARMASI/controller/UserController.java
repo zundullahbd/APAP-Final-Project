@@ -1,6 +1,5 @@
 package apap.TA_B1.siFARMASI.controller;
 
-import apap.TA_B1.siFARMASI.model.AdminModel;
 import apap.TA_B1.siFARMASI.model.UserModel;
 import apap.TA_B1.siFARMASI.service.UserService;
 import org.slf4j.Logger;
@@ -9,19 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.time.Instant;
 import java.util.List;
-import apap.TA_B1.siFARMASI.model.*;
-import apap.TA_B1.siFARMASI.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 @CrossOrigin

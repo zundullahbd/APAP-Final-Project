@@ -3,14 +3,9 @@ package apap.TA_B1.siFARMASI.controller;
 import apap.TA_B1.siFARMASI.model.MitraModel;
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.RiwayatTambahStokModel;
-import apap.TA_B1.siFARMASI.repository.RiwayatTambahStokDb;
 import apap.TA_B1.siFARMASI.service.MitraService;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
-import apap.TA_B1.siFARMASI.service.UserService;
 
-
-import apap.TA_B1.siFARMASI.service.MitraService;
-import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.RiwayatTambahStokService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,26 +28,20 @@ public class ObatAlkesController {
     @Autowired
     private MitraService mitraService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RiwayatTambahStokDb riwayatTambahStokDb;
-
     private RiwayatTambahStokService riwayatTambahStokService;
 
     @GetMapping("/")
-    public String viewAllObatAlkes(Model model){
+    public String viewAllObatAlkes(Model model) {
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         model.addAttribute("listObatAlkes", listObatAlkes);
         return "obatalkes/list-obatalkes";
     }
 
     @GetMapping("/detail/{id}")
-    public String detailObatAlkes(@PathVariable Integer id,Model model){
+    public String detailObatAlkes(@PathVariable Integer id, Model model) {
         ObatAlkesModel obatAlkes = obatAlkesService.getObatAlkesById(id);
-            model.addAttribute("obatAlkes", obatAlkes);
-            return "obatalkes/detail-obatalkes";
+        model.addAttribute("obatAlkes", obatAlkes);
+        return "obatalkes/detail-obatalkes";
     }
 
     @GetMapping("/add")
@@ -73,7 +61,7 @@ public class ObatAlkesController {
 
     @PostMapping("/add")
     public String addNewObatAlkesSubmit(@ModelAttribute ObatAlkesModel obatAlkes,
-                                        @RequestParam("file")MultipartFile file) {
+            @RequestParam("file") MultipartFile file) {
         // Simpan path file dalam objek obatAlkesModel
         obatAlkes.setPathFile(file.getOriginalFilename());
 
@@ -89,9 +77,8 @@ public class ObatAlkesController {
         return "redirect:/obat-alkes/";
     }
 
-
     @GetMapping("/input-obat-alkes")
-    public String addObatAlkesFormPage (Model model) {
+    public String addObatAlkesFormPage(Model model) {
         logger.info("Handle obat alkes add form request");
         RiwayatTambahStokModel riwayatTambahStok = new RiwayatTambahStokModel();
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();

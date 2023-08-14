@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.w3.org/1999/xhtml"
+>
   <nav
     class="fixed flex w-full items-center py-2 px-20 bg-white/5 backdrop-blur-xl border-b border-gray-900/5 h-16"
     aria-label="Global"
     th:fragment="nav(activeTab)"
   >
     <div class="flex grow">
-      <a href="/" class="-m-1.5 p-1.5 flex flex-row items-center space-x-3">
+      <a
+        th:href="@{/}"
+        class="-m-1.5 p-1.5 flex flex-row items-center space-x-3"
+      >
         <span class="sr-only">siFARMASI</span>
         <svg
           class="w-8 h-8"
@@ -43,16 +50,23 @@
     </div>
     <div class="flex p-1 rounded-xl bg-gray-900/5" th:if="${#authentication}">
       <a
-        href="/user/manajemenUser"
+        th:href="@{/user}"
+        th:classappend="${activeTab == 'listUsers' ? 'text-white bg-sky-400' : ''}"
+        sec:authorize="hasAuthority('ADMIN')"
+        class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
+      >
+        Users
+      </a>
+      <a
+        th:href="@{/user/manajemenUser}"
         th:classappend="${activeTab == 'manageUsers' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('ADMIN')"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
       >
         Manage Users
       </a>
-
       <a
-        href="#"
+        th:href="@{/obat-alkes}"
         th:classappend="${activeTab == 'obatAlkes' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('APOTEKER')"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
@@ -60,7 +74,7 @@
         Obat & Alkes
       </a>
       <a
-        href="/mitra"
+        th:href="@{/mitra}"
         th:classappend="${activeTab == 'mitra' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('ADMIN') or hasAuthority('APOTEKER')"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
@@ -68,7 +82,7 @@
         Mitra
       </a>
       <a
-        href="/resep/input-resep"
+        th:href="@{/resep/input-resep}"
         th:classappend="${activeTab == 'resep' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('DOKTER') or hasAuthority('APOTEKER')"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
@@ -76,7 +90,7 @@
         Resep
       </a>
       <a
-        href="/obat-alkes/input-obat-alkes"
+        th:href="@{/obat-alkes/input-obat-alkes}"
         th:classappend="${activeTab == 'stok' ? 'text-white bg-sky-400' : ''}"
         sec:authorize="hasAuthority('DOKTER') or hasAuthority('APOTEKER')"
         class="px-6 py-2 rounded-lg text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-900/10"
@@ -90,7 +104,7 @@
       class="flex grow justify-end"
     >
       <a
-        href="/logout"
+        th:href="@{/logout}"
         class="py-3 px-5 rounded-xl bg-rose-500 text-white text-sm hover:bg-rose-600"
       >
         Logout

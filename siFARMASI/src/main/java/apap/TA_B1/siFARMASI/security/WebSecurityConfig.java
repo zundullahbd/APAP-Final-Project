@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
+                .antMatchers("/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/manajemenUser").hasAuthority(admin)
                 .antMatchers("/user/view/**").hasAuthority(admin)
@@ -48,6 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
                 .antMatchers("/laporan/**").hasAnyAuthority(admin, manajemen)
                 .antMatchers("/mitra/**").hasAnyAuthority(admin, apoteker)
+                .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(login -> login

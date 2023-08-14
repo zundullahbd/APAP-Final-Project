@@ -2,7 +2,6 @@ package apap.TA_B1.siFARMASI.controller;
 
 import apap.TA_B1.siFARMASI.model.ObatAlkesModel;
 import apap.TA_B1.siFARMASI.model.ResepModel;
-import apap.TA_B1.siFARMASI.repository.ResepDb;
 import apap.TA_B1.siFARMASI.service.ObatAlkesService;
 import apap.TA_B1.siFARMASI.service.ResepService;
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ public class ResepController {
     @Autowired
     private ObatAlkesService obatAlkesService;
 
-    @Autowired
-    private ResepDb resepDb;
 
     @GetMapping("/input-resep")
     public String addResepFormPage (Model model) {
