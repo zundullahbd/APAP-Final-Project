@@ -31,6 +31,15 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+    String admin = "ADMIN";
+    String apoteker = "APOTEKER";
+    String dokter = "DOKTER";
+    String manager = "MANAGER";
+    String nameUser = "nameUser";
+    String addUser = "auth/add-user";
+    String viewAllUser = "auth/viewall-user";
+    String accessDenied = "auth/access-denied";
+            
     @GetMapping("")
     public String viewUserList(Model model) {
         logger.info("Handling view user list request");
@@ -80,7 +89,7 @@ public class UserController {
 
         model.addAttribute("listUser", listUser);
         model.addAttribute("user", userModel);
-        return "auth/viewall-user";
+        return viewAllUser;
     }
 
     @GetMapping("/manajemenUser")
@@ -90,16 +99,16 @@ public class UserController {
 
         var authenticationUsername = authenticationUser.getUsername();
         var userModel = userService.getUserByName(authenticationUsername);
-        if(userModel.getRole().equals("ADMIN")){
+        if(userModel.getRole().equals(admin)){
             List<String> role = new ArrayList<>();
-            role.add("ADMIN");
-            role.add("APOTEKER");
-            role.add("DOKTER");
-            role.add("MANAGER");
+            role.add(admin);
+            role.add(apoteker);
+            role.add(dokter);
+            role.add(manager);
             model.addAttribute("listRole", role);
             return "auth/manajemen-user";
         } else{
-            return "auth/access-denied";
+            return accessDenied;
         }
     }
 
@@ -113,23 +122,23 @@ public class UserController {
         var userModel = userService.getUserByName(authenticationUsername);
         var user = new UserModel();
 
-        if(userModel.getRole().equals("ADMIN")){
+        if(userModel.getRole().equals(admin)){
 
-            if(userRole.equals("DOKTER") || userRole.equals("APOTEKER") || userRole.equals("MANAGER")){
+            if(userRole.equals(dokter) || userRole.equals(apoteker) || userRole.equals(manager)){
                 List<String> listRole = new ArrayList<>();
-                listRole.add("ADMIN");
-                listRole.add("APOTEKER");
-                listRole.add("DOKTER");
-                listRole.add("MANAGER");
+                listRole.add(admin);
+                listRole.add(apoteker);
+                listRole.add(dokter);
+                listRole.add(manager);
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("user", user);
                 model.addAttribute("listRole", listRole);
                 return "auth/form-add-user";
             } else{
-                return "auth/access-denied";
+                return accessDenied;
             }
         } else{
-            return "auth/access-denied";
+            return accessDenied;
         }
     }
 
@@ -141,31 +150,31 @@ public class UserController {
         var authenticationUsername = authenticationUser.getUsername();
         var userModel = userService.getUserByName(authenticationUsername);
 
-        if(userModel.getRole().equals("ADMIN")){
-            if(role.equals("DOKTER")){
-                user.setRole("DOKTER");
+        if(userModel.getRole().equals(admin)){
+            if(role.equals(dokter)){
+                user.setRole(dokter);
                 userService.addUserWithRole(user);
-                model.addAttribute("nameUser", user.getUsername());
-                return "auth/add-user";
+                model.addAttribute(nameUser, user.getUsername());
+                return addUser;
 
-            } else if (role.equals("APOTEKER")) {
-                user.setRole("APOTEKER");
+            } else if (role.equals(apoteker)) {
+                user.setRole(apoteker);
                 userService.addUserWithRole(user);
-                model.addAttribute("nameUser", user.getUsername());
-                return "auth/add-user";
-            } else if (role.equals("MANAGER")) {
-                user.setRole("MANAGER");
+                model.addAttribute(nameUser, user.getUsername());
+                return addUser;
+            } else if (role.equals(manager)) {
+                user.setRole(manager);
                 userService.addUserWithRole(user);
-                model.addAttribute("nameUser", user.getUsername());
-                return "auth/add-user";
+                model.addAttribute(nameUser, user.getUsername());
+                return addUser;
 
             }
             else{
-                return "auth/access-denied";
+                return accessDenied;
             }
         }
         else{
-            return "auth/access-denied";
+            return accessDenied;
         }
     }
 
@@ -176,30 +185,30 @@ public class UserController {
         var authenticationUsername = authenticationUser.getUsername();
         var userModel = userService.getUserByName(authenticationUsername);
 
-        if(userModel.getRole().equals("ADMIN")) {
-            if(userRole.equals("MANAGER")){
+        if(userModel.getRole().equals(admin)) {
+            if(userRole.equals(manager)){
                 List<UserModel> listManager = userService.getListManager();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listManager);
-                return "auth/viewall-user";
+                return viewAllUser;
 
-            } else if (userRole.equals("DOKTER")){
+            } else if (userRole.equals(dokter)){
                 List<UserModel> listDokter = userService.getListDokter();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listDokter);
-                return "auth/viewall-user";
+                return viewAllUser;
 
-            } else if (userRole.equals("APOTEKER")){
+            } else if (userRole.equals(apoteker)){
                 List<UserModel> listApoteker = userService.getListApoteker();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listApoteker);
-                return "auth/viewall-user";
+                return viewAllUser;
 
             } else{
-                return "auth/access-denied";
+                return accessDenied;
             }
         } else{
-            return "auth/access-denied";
+            return accessDenied;
         }
     }
 
@@ -213,7 +222,7 @@ public class UserController {
         var userModel = userService.getUserByName(authUsername);
 
 
-        if(userModel.getRole().equals("ADMIN")){
+        if(userModel.getRole().equals(admin)){
             if(userModel.getUsername().equals(username)){
                 return "auth/failed-delete-user";
 
@@ -226,7 +235,7 @@ public class UserController {
             }
         }
         else {
-            return "auth/access-denied";
+            return accessDenied;
         }
 
     }

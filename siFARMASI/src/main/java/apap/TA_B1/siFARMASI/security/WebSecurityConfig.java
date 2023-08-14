@@ -16,6 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    String admin = "ADMIN";
+    String apoteker = "APOTEKER";
+    String dokter = "DOKTER";
+
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -35,12 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/", "/signup").permitAll() // Allow public access to home and signup
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
-                .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
-                .antMatchers("/user/view/**").hasAuthority("ADMIN")
-                .antMatchers("/obat-alkes/**").hasAnyAuthority("APOTEKER")
-                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority("DOKTER", "APOTEKER")
-                .antMatchers("/resep/input-resep").hasAnyAuthority("DOKTER", "APOTEKER")
-                .antMatchers("/mitra/**").hasAnyAuthority("ADMIN", "APOTEKER")
+                .antMatchers("/user/manajemenUser").hasAuthority(admin)
+                .antMatchers("/user/view/**").hasAuthority(admin)
+                .antMatchers("/obat-alkes/**").hasAnyAuthority(apoteker)
+                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/mitra/**").hasAnyAuthority(admin, apoteker)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(login -> login
