@@ -37,24 +37,71 @@
                   </li>
                   <li>
                     <a
-                      href="/mitra"
-                      class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center block"
+                            th:href="@{/mitra}"
+                      class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
                       >Manage Mitra</a
                     >
+
                   </li>
+                  <li>
+                    <a
+                            th:href="@{/laporan}"
+                            class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                    >Buat Laporan
+                    </a>
+                  </li>
+
                 </ul>
                 <ul sec:authorize="hasAuthority('DOKTER')">
-                  <li>Manage Resep</li>
-                  <li>Manage Obat dan Alkes</li>
+                  <li>
+                    <a
+                          th:href="@{/resep/input-resep}"
+                          class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                          >Buat Resep
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                            th:href="@{/obat-alkes/}"
+                            class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                            >Manage Obat dan Alkes
+                    </a>
+                  </li>
                 </ul>
                 <ul sec:authorize="hasAuthority('APOTEKER')">
-                  <li>Manage Obat dan Alkes</li>
-                  <li>Manage Resep</li>
-                  <li>Manage Mitra</li>
+                  <li>
+                    <a
+                            th:href="@{/obat-alkes/}"
+                            class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                            >Manage Obat dan Alkes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                            th:href="@{/resep/input-resep}"
+                          class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                          >Buat Resep
+                    </a>
+                  </li>
+                  <li><a
+                          th:href="@{/mitra}"
+                          class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                          >Manage Mitra</a
+                  ></li>
+                  <li><a
+                          th:href="@{/obat-alkes/input-obat-alkes}"
+                          class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                          >Tambah Obat dan Alkes
+                  </a></li>
                 </ul>
                 <ul sec:authorize="hasAuthority('MANAGER')">
-                  <li>Manage Mitra</li>
-                  <li>Manage Obat dan Alkes</li>
+                  <li>
+                    <a
+                            th:href="@{/laporan}"
+                          class="edit-button text-gray-800 border border-gray-200 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 block"
+                          >Buat Laporan
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

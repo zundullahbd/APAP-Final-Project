@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     String admin = "ADMIN";
     String apoteker = "APOTEKER";
     String dokter = "DOKTER";
-    String manajemen = "MANAJEMEN";
+    String manajemen = "MANAGER";
 
 
     @Autowired

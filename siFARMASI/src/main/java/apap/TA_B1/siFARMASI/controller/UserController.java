@@ -30,6 +30,7 @@ public class UserController {
     String viewAllUser = "auth/viewall-user";
     String accessDenied = "auth/access-denied";
 
+    //Nampilin semua user yg ada di db
     @GetMapping("/listAllUsers")
     public String listAllUser(Model model) {
         List<UserModel> listUser = userService.getListUser();
@@ -45,6 +46,7 @@ public class UserController {
         return viewAllUser;
     }
 
+    // Nampilin page buat ngecek user per role nanti di redirect
     @GetMapping("/manajemenUser")
     public String viewAllUser(Model model) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,6 +66,7 @@ public class UserController {
         }
     }
 
+    // nampilin form nambah user
     @GetMapping(value = "/add/{userRole}")
     public String addUserFormPage(@PathVariable String userRole, Model model){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -93,6 +96,7 @@ public class UserController {
         }
     }
 
+    // submit data user yg mo ditambah
     @PostMapping(value="/add")
     public String addUserSubmit(@RequestParam String role, @ModelAttribute UserModel user, Model model){
         var auth = SecurityContextHolder.getContext().getAuthentication();
@@ -128,6 +132,7 @@ public class UserController {
         }
     }
 
+    // nampilin daftar user sesuai role
     @GetMapping(value = "/view/{userRole}")
     public String getUser(@PathVariable String userRole, Model model){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -162,6 +167,7 @@ public class UserController {
     }
 
 
+    // hapus user
     @GetMapping("/delete/{username}")
     public String deleteUser (@PathVariable String username, Model model) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -174,13 +180,16 @@ public class UserController {
 
         if(userModel.getRole().equals(admin)){
             if(userModel.getUsername().equals(username)){
+                var user = userService.getUserByName(username);
+                userService.deleteUser(user);
+                model.addAttribute( "nameUser",user.getUsername());
                 return "auth/failed-delete-user";
 
 
             } else{
                 var user = userService.getUserByName(username);
                 userService.deleteUser(user);
-                model.addAttribute( "username",user.getUsername());
+                model.addAttribute( "nameUser",user.getUsername());
                 return "auth/delete-user";
             }
         }
