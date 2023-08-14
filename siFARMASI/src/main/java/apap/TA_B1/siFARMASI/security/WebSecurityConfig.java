@@ -19,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     String admin = "ADMIN";
     String apoteker = "APOTEKER";
     String dokter = "DOKTER";
+    String manajemen = "MANAJEMEN";
 
 
     @Autowired
@@ -39,10 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeHttpRequests()
                 .antMatchers("/", "/signup", "/login-sso", "/validate-ticket").permitAll()
-                .antMatchers("/user/manajemenUser").hasAuthority(admin)
-                .antMatchers("/user/view/**").hasAuthority(admin)
+                .antMatchers("/user/**").hasAuthority(admin)
                 .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
-                .antMatchers("/obat-alkes/**").hasAnyAuthority(apoteker)
+                .antMatchers("/obat-alkes/**").hasAuthority(apoteker)
+                .antMatchers("/obat-alkes/input-obat-alkes").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
+                .antMatchers("/laporan/**").hasAnyAuthority(admin, manajemen)
                 .antMatchers("/mitra/**").hasAnyAuthority(admin, apoteker)
                 .antMatchers("/resep/input-resep").hasAnyAuthority(dokter, apoteker)
                 .anyRequest().authenticated()

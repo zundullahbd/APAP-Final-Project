@@ -37,9 +37,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserModel addUser(UserModel user) {
-        String pass = encrypt(user.getPassword());
-        user.setPassword(pass);
-        user.setCreated_at_timestamp(Instant.now());
+        String pass = encrypt(user.getPassword()); // password di hash sebelum simpan ke db
+        user.setPassword(pass); // setting password yang udah dihash
+        user.setIsSso(false); // setting bukan user dari sso
+        user.setCreated_at_timestamp(Instant.now()); // setting tanggal terbuat di waktu sekarang
         return userDb.save(user);
     }
 

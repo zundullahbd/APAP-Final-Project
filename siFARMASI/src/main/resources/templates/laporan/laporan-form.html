@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<head th:insert="head.html :: head">
+    <title>Pilih Jenis Laporan</title>
+</head>
+<body>
+<div class="bg-white">
+    <header class="absolute inset-x-0 top-0 z-50"
+            th:insert="nav.html :: nav('laporan')">
+    </header>
+    <section class="container max-w-2xl p-20 mt-16">
+        <h2 class="text-2xl font-semibold mb-4">Pilih Jenis Laporan</h2>
+        <form th:action="@{/laporan}" method="get">
+            <div class="mb-4">
+                <label class="block font-semibold mb-2" for="jenisLaporan">Jenis Laporan</label>
+                <select name="jenisLaporan" id="jenisLaporan" class="w-full border rounded-lg p-2">
+                    <option value="kadaluwarsa">Kadaluwarsa Obat / Alkes per Tahun</option>
+                    <!-- opsi jenis laporan lain -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block font-semibold mb-2" for="tahunAwal">Tahun Awal</label>
+                <input type="text" name="tahunAwal" id="tahunAwal" class="w-full border rounded-lg p-2">
+            </div>
+            <div class="mb-4">
+                <label class="block font-semibold mb-2" for="tahunAkhir">Tahun Akhir</label>
+                <input type="text" name="tahunAkhir" id="tahunAkhir" class="w-full border rounded-lg p-2">
+            </div>
+            <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg" id="generateButton">Generate Laporan</button>
+        </form>
+    </section>
+    <div
+            class="absolute top-0 left-0 w-[90%] isolate pt-14 px-8 pointer-events-none">
+        <div
+                class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                aria-hidden="true">
+            <div
+                    class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                    style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            ">
+            </div>
+        </div>
+        <div
+                class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+                aria-hidden="true">
+            <div
+                    class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                    style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            ">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        $("#generateButton").click(function() {
+            var jenisLaporan = $("#jenisLaporan").val();
+            var tahunAwal = $("#tahunAwal").val();
+            var tahunAkhir = $("#tahunAkhir").val();
+
+            // Membangun URL dengan format yang diinginkan
+            var url = "/laporan/" + jenisLaporan + "/" + tahunAwal + "-" + tahunAkhir;
+            window.location.href = url;
+        });
+        // Inisialisasi year picker untuk input dengan id tahunAwal
+        $("#tahunAwal").datepicker({
+            changeYear: true,
+            dateFormat: 'yy', // Format tahun
+            yearRange: 'c-10:c+10' // Rentang tahun yang ditampilkan
+        });
+
+        // Inisialisasi year picker untuk input dengan id tahunAkhir
+        $("#tahunAkhir").datepicker({
+            changeYear: true,
+            dateFormat: 'yy', // Format tahun
+            yearRange: 'c-10:c+10' // Rentang tahun yang ditampilkan
+        });
+    });
+</script>
+</body>
+</html>
+
+

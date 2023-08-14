@@ -13,7 +13,7 @@
           class="flex items-center justify-center bg-gray-500/10 border rounded-2xl border-gray-500/20 p-6"
         >
           <form
-            th:action="@{/user/add}"
+            th:action="@{/user/adminAddUser}"
             th:object="${userModel}"
             method="POST"
             class="z-10 p-12 grow border border-gray-500/20 rounded-lg bg-white shadow-xl"
@@ -46,6 +46,21 @@
                 th:field="*{name}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
                 placeholder="Name"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Email</label
+              >
+              <input
+                type="text"
+                id="email"
+                th:field="*{email}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm"
+                placeholder="Email"
                 required
               />
             </div>
