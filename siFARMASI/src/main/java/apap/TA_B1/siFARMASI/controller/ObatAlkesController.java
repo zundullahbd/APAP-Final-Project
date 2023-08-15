@@ -30,7 +30,7 @@ public class ObatAlkesController {
     @Autowired
     private RiwayatTambahStokService riwayatTambahStokService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String viewAllObatAlkes(Model model) {
         List<ObatAlkesModel> listObatAlkes = obatAlkesService.getListObatAlkes();
         model.addAttribute("listObatAlkes", listObatAlkes);
