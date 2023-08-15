@@ -29,10 +29,12 @@ public class UserController {
     String addUser = "auth/add-user";
     String viewAllUser = "auth/viewall-user";
     String accessDenied = "auth/access-denied";
+    String listAllUser = "auth/list-user";
 
     //Nampilin semua user yg ada di db
     @GetMapping("/listAllUsers")
     public String listAllUser(Model model) {
+        logger.info("Handle nampilin list semua user");
         List<UserModel> listUser = userService.getListUser();
 
         var authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -43,12 +45,13 @@ public class UserController {
 
         model.addAttribute("listUser", listUser);
         model.addAttribute("user", userModel);
-        return viewAllUser;
+        return listAllUser;
     }
 
     // Nampilin page buat ngecek user per role nanti di redirect
     @GetMapping("/manajemenUser")
     public String viewAllUser(Model model) {
+        logger.info("Handle manajemen user");
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var authenticationUser = (User) authentication.getPrincipal();
 
@@ -69,6 +72,7 @@ public class UserController {
     // nampilin form nambah user
     @GetMapping(value = "/add/{userRole}")
     public String addUserFormPage(@PathVariable String userRole, Model model){
+        logger.info("Handle nambah user baru");
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var authenticationUser = (User) authentication.getPrincipal();
 
@@ -99,6 +103,7 @@ public class UserController {
     // submit data user yg mo ditambah
     @PostMapping(value="/add")
     public String addUserSubmit(@RequestParam String role, @ModelAttribute UserModel user, Model model){
+        logger.info("Handle nambah user baru untuk submit");
         var auth = SecurityContextHolder.getContext().getAuthentication();
         var authenticationUser = (User) auth.getPrincipal();
 
@@ -135,6 +140,7 @@ public class UserController {
     // nampilin daftar user sesuai role
     @GetMapping(value = "/view/{userRole}")
     public String getUser(@PathVariable String userRole, Model model){
+        logger.info("Handle melihat user berdasarkan role");
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var authenticationUser = (User) authentication.getPrincipal();
         var authenticationUsername = authenticationUser.getUsername();
@@ -170,6 +176,7 @@ public class UserController {
     // hapus user
     @GetMapping("/delete/{username}")
     public String deleteUser (@PathVariable String username, Model model) {
+        logger.info("Handle hapus user");
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var authUser = (User) authentication.getPrincipal();
 
